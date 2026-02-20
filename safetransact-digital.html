@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeTransact Digital | Custodia Cualificada de Firmas Electrónicas · QTSP eIDAS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:       #0a0d14;
+      --paper:     #f5f2eb;
+      --gold:      #b89a4e;
+      --gold-lt:   #d4b87a;
+      --teal:      #1a6e6e;
+      --teal-lt:   #2a9090;
+      --mist:      #e8e4da;
+      --rule:      rgba(10,13,20,0.12);
+      --rule-gold: rgba(184,154,78,0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ─────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.5;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: rgba(245,242,235,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 36px; height: 36px;
+      background: var(--ink);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-logo-mark svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-logo-text span { color: var(--teal); }
+
+    .brand-logo-img {
+      display: block;
+      height: 40px;
+      width: auto;
+    }
+
+    .footer-brand .brand-logo-img {
+      height: 46px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      background: var(--ink);
+      color: var(--paper) !important;
+      opacity: 1 !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 4px;
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      gap: 4rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 70vw; height: 100vh;
+      background: radial-gradient(ellipse at 70% 30%, rgba(26,110,110,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 1px;
+      background: var(--teal);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 44ch;
+      margin-bottom: 2.5rem;
+      opacity: 0.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ink);
+      color: var(--paper);
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(10,13,20,0.2);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      border-bottom: 1px solid var(--rule-gold);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--gold); }
+
+    /* HERO VISUAL */
+    .hero-visual {
+      position: relative;
+      height: 540px;
+    }
+
+    .document-stack {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .doc-card {
+      position: absolute;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(10,13,20,0.08), 0 16px 48px rgba(10,13,20,0.06);
+    }
+
+    .doc-card-1 {
+      width: 380px; height: 200px;
+      top: 20%; left: 5%;
+      transform: rotate(-4deg);
+      background: white;
+      animation: float1 6s ease-in-out infinite;
+    }
+
+    .doc-card-2 {
+      width: 320px; height: 220px;
+      top: 10%; left: 20%;
+      transform: rotate(2deg);
+      z-index: 2;
+      animation: float2 7s ease-in-out infinite;
+    }
+
+    .doc-card-3 {
+      width: 280px; height: 190px;
+      bottom: 15%; right: 5%;
+      transform: rotate(-2deg);
+      z-index: 1;
+      background: var(--mist);
+      animation: float3 8s ease-in-out infinite;
+    }
+
+    .doc-card-main {
+      width: 340px; height: 260px;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      z-index: 3;
+      border: 2px solid var(--gold-lt);
+      animation: floatMain 5s ease-in-out infinite;
+    }
+
+    @keyframes float1 { 0%,100%{transform:rotate(-4deg) translateY(0)} 50%{transform:rotate(-4deg) translateY(-10px)} }
+    @keyframes float2 { 0%,100%{transform:rotate(2deg) translateY(0)} 50%{transform:rotate(2deg) translateY(-8px)} }
+    @keyframes float3 { 0%,100%{transform:rotate(-2deg) translateY(0)} 50%{transform:rotate(-2deg) translateY(6px)} }
+    @keyframes floatMain { 0%,100%{transform:translate(-50%,-50%) translateY(0)} 50%{transform:translate(-50%,-50%) translateY(-12px)} }
+
+    .doc-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .doc-icon {
+      width: 28px; height: 28px;
+      background: var(--teal);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .doc-title-small {
+      font-size: 0.75rem;
+      font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.04em;
+    }
+
+    .doc-lines { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .doc-line {
+      height: 8px;
+      background: var(--mist);
+      border-radius: 4px;
+    }
+
+    .doc-line.short { width: 60%; }
+    .doc-line.medium { width: 80%; }
+    .doc-line.long { width: 95%; }
+    .doc-line.gold { background: linear-gradient(90deg, var(--gold-lt), var(--gold)); width: 45%; }
+
+    .doc-seal {
+      position: absolute;
+      bottom: 1.2rem; right: 1.2rem;
+      width: 48px; height: 48px;
+    }
+
+    .doc-seal svg { width: 100%; height: 100%; }
+
+    .shield-badge {
+      position: absolute;
+      top: 50%; right: 4%;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+
+    .shield-badge-inner {
+      width: 90px; height: 90px;
+      background: var(--ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 3px;
+      box-shadow: 0 4px 24px rgba(10,13,20,0.3);
+      border: 3px solid var(--gold);
+    }
+
+    .shield-badge-inner span:first-child {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .shield-badge-inner span:first-child svg {
+      width: 30px;
+      height: 30px;
+      display: block;
+    }
+
+    .shield-badge-inner span:last-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.54rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      line-height: 1.15;
+      color: var(--gold-lt);
+      text-align: center;
+      display: block;
+      margin-top: 0;
+    }
+
+    /* ── EU TRUST BANNER ──────────────────────────────────── */
+    .trust-strip {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .trust-dot {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── SECTION COMMON ───────────────────────────────────── */
+    section { padding: 6rem 3rem; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* ── PROBLEM SECTION ──────────────────────────────────── */
+    .problem-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .problem-body {
+      font-size: 1rem;
+      line-height: 1.85;
+      opacity: 0.85;
+      margin-top: 1.5rem;
+    }
+
+    .problem-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .problem-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      border-left: 3px solid transparent;
+      box-shadow: 0 1px 4px rgba(10,13,20,0.06);
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+
+    .problem-card:hover {
+      border-left-color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    .problem-card h4 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .problem-card p {
+      font-size: 0.85rem;
+      opacity: 0.75;
+      line-height: 1.6;
+    }
+
+    /* ── WHAT IS SECTION ──────────────────────────────────── */
+    .what-section {
+      background: var(--ink);
+      color: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .what-section::before {
+      content: '';
+      position: absolute;
+      top: -30%; left: -20%;
+      width: 80%; height: 140%;
+      background: radial-gradient(ellipse, rgba(26,110,110,0.15) 0%, transparent 70%);
+    }
+
+    .what-section::after {
+      content: '"';
+      position: absolute;
+      bottom: -10%; right: 5%;
+      font-family: 'Playfair Display', serif;
+      font-size: 30rem;
+      line-height: 1;
+      opacity: 0.04;
+      color: var(--gold);
+      pointer-events: none;
+    }
+
+    .what-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .what-section .section-label { color: var(--gold-lt); }
+
+    .what-section .section-title { color: var(--paper); }
+
+    .what-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      line-height: 1.6;
+      margin: 2.5rem 0;
+      opacity: 0.9;
+      padding: 0 2rem;
+      border-left: none;
+      position: relative;
+    }
+
+    .what-quote::before, .what-quote::after {
+      content: '—';
+      color: var(--gold);
+      margin: 0 0.5rem;
+    }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+      text-align: left;
+    }
+
+    .what-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: background 0.3s;
+    }
+
+    .what-card:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .what-card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .what-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--gold-lt);
+    }
+
+    .what-card p {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      opacity: 0.75;
+    }
+
+    /* ── HOW IT WORKS ─────────────────────────────────────── */
+    .how-section { }
+
+    .how-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .how-step {
+      background: var(--paper);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .how-step:hover { background: white; }
+
+    .how-step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--rule);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .how-step h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: var(--teal);
+    }
+
+    .how-step p {
+      font-size: 0.83rem;
+      line-height: 1.7;
+      opacity: 0.75;
+    }
+
+    .how-step-arrow {
+      position: absolute;
+      top: 50%; right: -14px;
+      transform: translateY(-50%);
+      width: 28px; height: 28px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 0.7rem;
+      z-index: 2;
+    }
+
+    .how-step:last-child .how-step-arrow { display: none; }
+
+    /* ── SERVICES GRID ────────────────────────────────────── */
+    .services-section {
+      background: white;
+    }
+
+    .services-header {
+      max-width: 600px;
+      margin-bottom: 4rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      cursor: default;
+      background: var(--paper);
+    }
+
+    .service-card:hover {
+      border-color: var(--gold-lt);
+      box-shadow: 0 8px 32px rgba(10,13,20,0.08);
+    }
+
+    .service-card.featured {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--gold);
+      grid-column: span 1;
+    }
+
+    .service-card.featured::before {
+      content: 'Servicio principal';
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 20px;
+    }
+
+    .service-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      margin-bottom: 1.2rem;
+    }
+
+    .service-card.featured .service-num { color: var(--gold-lt); }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .service-card p {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      opacity: 0.75;
+    }
+
+    .service-card.featured p { opacity: 0.8; }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.5rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--teal);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: gap 0.2s;
+    }
+
+    .service-card.featured .service-link { color: var(--gold-lt); }
+
+    .service-link:hover { gap: 0.7rem; }
+
+    /* ── WHY QTSP ─────────────────────────────────────────── */
+    .qtsp-section {
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .qtsp-left { }
+
+    .qtsp-list {
+      list-style: none;
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .qtsp-list li {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .qtsp-check {
+      width: 22px; height: 22px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 0.65rem;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    .qtsp-list li div strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    .qtsp-list li div p {
+      font-size: 0.83rem;
+      opacity: 0.75;
+      line-height: 1.6;
+    }
+
+    .qtsp-right {
+      background: var(--mist);
+      border-radius: 16px;
+      padding: 3rem;
+    }
+
+    .qtsp-stat {
+      text-align: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .qtsp-stat:last-child { border-bottom: none; }
+
+    .qtsp-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+    }
+
+    .qtsp-stat-label {
+      font-size: 0.8rem;
+      opacity: 0.65;
+      margin-top: 0.4rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── REGULATIONS ──────────────────────────────────────── */
+    .reg-section {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .reg-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+    }
+
+    .reg-section .section-label { color: var(--gold-lt); }
+    .reg-section .section-title { color: var(--paper); }
+
+    .reg-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .reg-item {
+      padding: 1.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .reg-item:first-child { padding-top: 0; }
+
+    .reg-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      background: rgba(255,255,255,0.08);
+      color: var(--gold-lt);
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      align-self: flex-start;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    .reg-item-body h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .reg-item-body p {
+      font-size: 0.83rem;
+      opacity: 0.65;
+      line-height: 1.65;
+    }
+
+    /* ── SECTORS ──────────────────────────────────────────── */
+    .sectors-section { }
+
+    .sectors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-top: 3.5rem;
+    }
+
+    .sector-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      border-top: 3px solid transparent;
+      box-shadow: 0 1px 4px rgba(10,13,20,0.06);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .sector-card:hover {
+      border-top-color: var(--teal);
+      transform: translateY(-4px);
+    }
+
+    .sector-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+    .sector-card h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .sector-card p {
+      font-size: 0.8rem;
+      opacity: 0.65;
+      line-height: 1.6;
+    }
+
+    /* ── CTA ──────────────────────────────────────────────── */
+    .cta-section {
+      text-align: center;
+      padding: 8rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(26,110,110,0.08) 0%, transparent 65%);
+    }
+
+    .cta-inner { position: relative; z-index: 1; }
+
+    .cta-section .section-title {
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      max-width: 18ch;
+      margin: 0 auto 1.5rem;
+    }
+
+    .cta-desc {
+      max-width: 50ch;
+      margin: 0 auto 3rem;
+      opacity: 0.75;
+      font-size: 1rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 4rem 3rem 2.5rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.83rem;
+      opacity: 0.6;
+      line-height: 1.7;
+      margin-top: 1rem;
+      max-width: 28ch;
+    }
+
+    .footer-col h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-col ul a {
+      color: rgba(245,242,235,0.6);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--paper); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      opacity: 0.45;
+    }
+
+    .cert-badges {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .cert-badge {
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 0.3rem 0.7rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--gold-lt);
+    }
+
+    /* ── DECORATIVE SEPARATOR ─────────────────────────────── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 3rem;
+      opacity: 0.35;
+    }
+
+    .ornament-line {
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .ornament-diamond {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ── HAMBURGER MENU ───────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: var(--ink);
+      z-index: 1001;
+      position: relative;
+    }
+
+    .nav-hamburger svg {
+      display: block;
+    }
+
+    .nav-close {
+      display: none;
+    }
+
+    .hamburger-line {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .nav-hamburger.active .hamburger-line-1 {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .nav-hamburger.active .hamburger-line-2 {
+      opacity: 0;
+    }
+
+    .nav-hamburger.active .hamburger-line-3 {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 13, 20, 0.4);
+      z-index: 1090;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+    }
+
+    /* ── ANIMATIONS ───────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-hamburger { display: block; }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 380px;
+        height: 100dvh;
+        min-height: 100vh;
+        max-width: 88vw;
+        background: var(--paper);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 6rem 2.5rem 2.5rem;
+        z-index: 1200;
+        transform: translateX(100%);
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -4px 0 24px rgba(10, 13, 20, 0.12);
+        overflow-y: auto;
+        margin: 0;
+      }
+
+      .nav-links.open {
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .nav-close-item {
+        position: absolute;
+        top: 1.25rem;
+        left: 1.25rem;
+        width: auto;
+        border-bottom: none;
+      }
+
+      .nav-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border: none;
+        border-radius: 10px;
+        background: var(--paper);
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      .nav-close svg {
+        display: block;
+      }
+
+      .nav-links li {
+        width: 100%;
+      }
+
+      .nav-links li:not(.nav-close-item) {
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .nav-links li:last-child {
+        border-bottom: none;
+        margin-top: 1rem;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 1.25rem 0;
+        font-size: 1.15rem;
+        opacity: 1;
+      }
+
+      .nav-links .nav-cta {
+        display: inline-flex;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+      }
+
+      .nav-overlay.active {
+        display: block;
+        opacity: 1;
+      }
+
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 7rem; }
+      .hero-visual { height: 360px; }
+      .problem-section { grid-template-columns: 1fr; gap: 3rem; }
+      .what-grid { grid-template-columns: 1fr 1fr; }
+      .how-steps { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .qtsp-section { grid-template-columns: 1fr; gap: 3rem; }
+      .reg-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .sectors-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero-visual { display: none; }
+      .what-grid { grid-template-columns: 1fr; }
+      .how-steps { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .sectors-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-top .footer-col { text-align: left !important; }
+      .trust-strip { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDc4MS41MyAxMDcuNjYiPgogIDwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAzMC4yLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiAyLjEuMSBCdWlsZCAxKSAgLS0+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5zdDAgewogICAgICAgIGZpbGw6ICMxNjE2MTU7CiAgICAgIH0KCiAgICAgIC5zdDEgewogICAgICAgIGZpbGw6ICNhODg4M2E7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxnPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTkyLjIxLDc3Ljk5Yy0uNDMtLjI2LS42LS42LS42LTEuMjh2LTguODhjMC0uMzQuMzQtLjUxLjY4LS4zNCw0LjYxLDIuOTksMTAuMjQsNC40NCwxNS4xOSw0LjQ0LDcsMCw5Ljk5LTIuNzMsOS45OS02LjQsMC0zLjE2LTIuMDUtNS41NS04LjU0LTguMjhsLTQuMS0xLjcxYy0xMC41LTQuNDQtMTMuMjMtOS43My0xMy4yMy0xNi4xMywwLTkuMTMsNi45MS0xNi4xMywxOS44LTE2LjEzLDUuMzgsMCwxMC4yNC43NywxMy4wNiwyLjIyLjQzLjI2LjUxLjUxLjUxLDEuMTF2OC4yOGMwLC4zNC0uMjYuNjgtLjc3LjM0LTMuMjQtMS44OC03Ljk0LTIuODItMTIuODktMi44Mi03LjM0LDAtOS42NSwzLjA3LTkuNjUsNi4wNnMxLjk2LDUuMjEsOC43MSw4LjAybDMuMjQsMS4zN2MxMS4xLDQuNjEsMTQuMjUsOS45OSwxNC4yNSwxNi43MywwLDkuOTktNy44NSwxNi40Ny0yMC43NCwxNi40Ny02LjIzLDAtMTEuNDQtMS4xOS0xNC45NC0zLjA3WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTE2OC45NCw3MS41YzAsMS44OCwwLDMuNTguMTcsNS4zOCwwLC4xNywwLC4yNi0uMTcuMzQtNywyLjk5LTExLjk1LDMuODQtMTcuNzUsMy44NC05LjMsMC0xNi43My00LjM1LTE2LjczLTE0LDAtOS4wNSw4LjExLTEzLjU3LDE5LjIxLTEzLjU3LDIuNTYsMCw0LjUyLjA4LDUuMjkuMTd2LTEuMDJjMC0xLjk2LTEuMTEtNi40LTguNjItNi40LTQuMjcsMC04LjAyLjg1LTExLjE4LDIuMzktLjI2LjA5LS42OCwwLS42OC0uNTF2LTcuNDNjMC0uNDMuMDktLjYuNTEtLjg1LDMuNjctMS43MSw4LjM2LTIuNTYsMTIuOTctMi41NiwxMS44NiwwLDE2Ljk5LDcuNDMsMTYuOTksMTYuOXYxNy4zM1pNMTU4Ljk1LDYxLjQzYy0xLjI4LS4xNy0yLjczLS4yNi00LjY5LS4yNi02Ljc0LDAtOS43MywyLjIyLTkuNzMsNS44OSwwLDMuMTYsMi4yMiw1Ljg5LDguMzcsNS44OSwyLjIyLDAsNC4xOC0uMjYsNi4wNi0xLjAydi0xMC41WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTE3NS4zNCw0Ni43NWMtLjQzLDAtLjUxLS4xNy0uNTEtLjZ2LTcuNTFjMC0uNDMuMTctLjUxLjUxLS41MWg1LjIxdi0xLjk2YzAtNC4yNy42OC03LjQzLDEuODgtOS45OSwyLjIyLTQuNjEsNi4xNS03LjUxLDEyLjYzLTcuNTEsMS43MSwwLDMuMjQuMDksNC4xOC41MS41MS4xNy41MS40My41MS44NXY3LjM0YzAsLjM0LS4xNy42LS42LjQzLS44NS0uMTctMS44OC0uMjYtMi42NS0uMjYtMy41LDAtNS42MywxLjg4LTUuNjMsNy43N3YyLjgyaDcuNTFjLjYsMCwuNjguMTcuNjguNTF2Ny41MWMwLC40My0uMTcuNTEtLjY4LjZoLTcuNTF2MzIuNzhjMCwuNDMtLjA5LjY4LS43Ny42OGgtOC44OGMtLjUxLDAtLjY4LS4yNi0uNjgtLjY4di0zMi43OGgtNS4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yMTIuNjQsNjEuNTFjLjI2LDUuOTgsNC4xOCwxMC43NSwxMi44OSwxMC43NSwzLjg0LDAsNy4zNC0uNjgsMTAuNTgtMi4wNS4yNi0uMTcuNTEtLjA5LjUxLjM0djcuMDhjMCwuNTEtLjE3Ljc3LS41MS45NC0zLjI0LDEuNTQtNywyLjQ4LTEyLjgsMi40OC0xNS41NCwwLTIxLjA4LTEwLjkzLTIxLjA4LTIxLjQyLDAtMTEuODYsNy4xNy0yMi4zNiwyMC4wNi0yMi4zNnMxNy41LDkuOSwxNy41LDE4LjAxYzAsMi4zOS0uMDgsNC4zNS0uMzQsNS4yOS0uMDkuMzQtLjI2LjUxLS42OC42LTEuMi4yNi00LjYxLjM0LTguNzkuMzRoLTE3LjMzWk0yMjUuMzYsNTQuMTdjMy4yNCwwLDQuMzUsMCw0LjY5LS4wOXYtLjY4YzAtMi40OC0xLjcxLTcuOTQtOC4xOS03Ljk0LTUuODksMC04LjU0LDQuNTItOS4yMiw4LjcxaDEyLjcyWiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTI1NC4wNCwzMy40M2gtMTcuMzNjLS40MywwLS42LS4yNi0uNTEtLjY4bDEuMTEtNy45NGMuMDktLjUxLjI2LS42OC43Ny0uNjhoNDIuNDJjLjUxLDAsLjc3LjE3Ljg1Ljc3bC43Nyw3Ljc3Yy4wOS41MS0uMTcuNzctLjYuNzdoLTE3LjI0djQ2LjAxYzAsLjUxLS4yNi43Ny0uNjguNzdoLTguNzljLS42LjA5LS43Ny0uMTctLjc3LS43N3YtNDYuMDFaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjkwLjIzLDM4LjEzYy41MSwwLC43Ny4xNy45NC42OC40MywxLjExLjc3LDMuMjQuODUsNS4xMiwyLjktMy41OCw3Ljc3LTYuNjYsMTMuNjYtNi42Ni41MSwwLC42OC4wOS42OC42djkuMDVjMCwuNDMtLjE3LjYtLjc3LjYtNi4wNi0uMTctMTEuMSwxLjk2LTEzLjA2LDQuNTJ2MjcuNDljMCwuNTEtLjI2LjY4LS43Ny42OGgtOC44OGMtLjYsMC0uNzctLjI2LS43Ny0uNjh2LTI5LjQ1YzAtMy42Ny0uMDktOC42Mi0uNDMtMTEuNDQsMC0uNDMuMDktLjUxLjUxLS41MWg4LjAyWiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTM0My4wNyw3MS41YzAsMS44OCwwLDMuNTguMTcsNS4zOCwwLC4xNywwLC4yNi0uMTcuMzQtNywyLjk5LTExLjk1LDMuODQtMTcuNzUsMy44NC05LjMsMC0xNi43My00LjM1LTE2LjczLTE0LDAtOS4wNSw4LjExLTEzLjU3LDE5LjIxLTEzLjU3LDIuNTYsMCw0LjUyLjA4LDUuMjkuMTd2LTEuMDJjMC0xLjk2LTEuMTEtNi40LTguNjItNi40LTQuMjcsMC04LjAyLjg1LTExLjE4LDIuMzktLjI2LjA5LS42OCwwLS42OC0uNTF2LTcuNDNjMC0uNDMuMDktLjYuNTEtLjg1LDMuNjctMS43MSw4LjM2LTIuNTYsMTIuOTctMi41NiwxMS44NiwwLDE2Ljk5LDcuNDMsMTYuOTksMTYuOXYxNy4zM1pNMzMzLjA4LDYxLjQzYy0xLjI4LS4xNy0yLjczLS4yNi00LjY5LS4yNi02Ljc0LDAtOS43MywyLjIyLTkuNzMsNS44OSwwLDMuMTYsMi4yMiw1Ljg5LDguMzcsNS44OSwyLjIyLDAsNC4xOC0uMjYsNi4wNi0xLjAydi0xMC41WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTM1My44Miw0Ny45NGMwLTIuOS0uMTctNy41MS0uMzQtOS4yMiwwLS40My4wOS0uNi42LS42aDcuNzdjLjYsMCwuODUuMTcsMS4wMi42LjI2Ljc3LjQzLDEuODguNiwzLjI0LDMuNjctMy4wNyw3Ljc3LTQuNjksMTIuMzgtNC42OSw2LjQsMCwxNC4yNSwzLjI0LDE0LjI1LDE2Ljl2MjUuMjdjMCwuNi0uMjYuNzctLjY4Ljc3aC04Ljg4Yy0uNTEsMC0uNzctLjI2LS43Ny0uNzd2LTI0LjMzYzAtNS42My0yLjM5LTguODgtNy4zNC04Ljg4LTMuNDEsMC02LjIzLDEuMjgtOC4yOCwzLjV2MjkuNzljMCwuNDMtLjI2LjY4LS42OC42OGgtOC45NmMtLjUxLDAtLjY4LS4yNi0uNjgtLjY4di0zMS41OFoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik00MTQuMTcsNDUuNTVjLTQuNTIsMC02LjA2LDEuODgtNi4wNiwzLjY3czEuMjgsMy4xNiw2Ljc0LDUuMjljOS43MywzLjU5LDEzLjA2LDcuNDMsMTMuMDYsMTMuNDksMCw4LjAyLTYuMzIsMTMuMDYtMTYuODIsMTMuMDYtNS4wNCwwLTkuNDctLjk0LTEyLjA0LTIuMzktLjQzLS4yNi0uNi0uNDMtLjYtLjk0di04LjExYzAtLjQzLjM0LS42LjY4LS40MywzLjY3LDIuMzksOC4zNywzLjQxLDEyLjIxLDMuNDEsNC40NCwwLDYuNTctMS41NCw2LjU3LTMuNzZzLTEuNjItMy41LTYuOTEtNS42M2MtOS4zLTMuNDEtMTIuNjMtNy4yNi0xMi42My0xMy40LDAtNi40OSw1LjI5LTEyLjU1LDE1Ljk2LTEyLjU1LDQuOTUsMCw4LjcxLjY4LDEwLjc1LDEuNzEuNDMuMjYuNTEuNi41MSwxLjAydjcuNTFjMCwuNDMtLjI2LjY4LS43Ny41MS0yLjY1LTEuNDUtNi45MS0yLjQ4LTEwLjY3LTIuNDhaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNDY4LjExLDcxLjVjMCwxLjg4LDAsMy41OC4xNyw1LjM4LDAsLjE3LDAsLjI2LS4xNy4zNC03LDIuOTktMTEuOTUsMy44NC0xNy43NSwzLjg0LTkuMywwLTE2LjczLTQuMzUtMTYuNzMtMTQsMC05LjA1LDguMTEtMTMuNTcsMTkuMjEtMTMuNTcsMi41NiwwLDQuNTIuMDgsNS4yOS4xN3YtMS4wMmMwLTEuOTYtMS4xMS02LjQtOC42Mi02LjQtNC4yNywwLTguMDIuODUtMTEuMTgsMi4zOS0uMjYuMDktLjY4LDAtLjY4LS41MXYtNy40M2MwLS40My4wOS0uNi41MS0uODUsMy42Ny0xLjcxLDguMzYtMi41NiwxMi45Ny0yLjU2LDExLjg3LDAsMTYuOTksNy40MywxNi45OSwxNi45djE3LjMzWk00NTguMTMsNjEuNDNjLTEuMjgtLjE3LTIuNzMtLjI2LTQuNy0uMjYtNi43NCwwLTkuNzMsMi4yMi05LjczLDUuODksMCwzLjE2LDIuMjIsNS44OSw4LjM3LDUuODksMi4yMiwwLDQuMTgtLjI2LDYuMDYtMS4wMnYtMTAuNVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01MDcuODEsNzkuMDFjMCwuNDMtLjA4LjYtLjQzLjY4LTIuNzMsMS4xMS02LjE1LDEuMzctOS40NywxLjM3LTEzLjgzLDAtMjIuMDItOS40Ny0yMi4wMi0yMS43N3M5LjM5LTIyLjAyLDIzLjQ3LTIyLjAyYzQuMjcsMCw2LjU3LjQzLDguMDIuOTQuMzQuMTcuNDMuNDMuNDMuOTRsLS4wOCw3LjZjMCwuNi0uMzQuNi0uNjguNTEtMS43OS0uNjgtNC4wMS0xLjExLTcuMzQtMS4xMS03Ljc3LDAtMTMuMjMsNC42MS0xMy4yMywxMi44LDAsOS4zLDYuNzQsMTIuODksMTMuMzIsMTIuODksMy4wNywwLDUuNzItLjI2LDcuNDMtLjg1LjQzLS4xNy42LjA5LjYuNDN2Ny42WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTUzNy41MSw3OC44NGMwLC41MS0uMDguODUtLjUxLDEuMDItMi4zLjg1LTQuNDQsMS4xOS03LjI2LDEuMTktNywwLTExLjE4LTMuNDEtMTEuMTgtMTEuODZ2LTIyLjQ1aC01LjM4Yy0uNDMtLjA5LS42LS4yNi0uNi0uNzd2LTcuMTdjMC0uNTEuMTctLjY4LjY4LS42OGg1LjM4Yy4wOS0yLjk5LjQzLTguMzYuODUtMTAuNS4wOS0uNDMuMjYtLjY4LjY4LS43N2w4LjYyLTEuMTljLjQzLS4wOS42LDAsLjYuNDMtLjI2LDIuODItLjQzLDcuODUtLjQzLDEyLjA0aDguMjhjLjQzLDAsLjYuMTcuNi42djcuNDNjMCwuNDMtLjE3LjYtLjYuNmgtOC4zN3YyMC4yM2MwLDMuNzYsMS4yLDUuNTUsNC44Nyw1LjU1LDEuMTEsMCwyLjA1LS4wOSwzLjI0LS4zNC4yNi0uMDkuNTEsMCwuNTEuNTF2Ni4xNVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NDEuODYsNzYuMzdjMC0yLjY1LDEuODgtNC42MSw0LjYxLTQuNjFzNC41MiwxLjk2LDQuNTIsNC42MWMwLDIuODItMS43MSw0LjY5LTQuNTIsNC42OXMtNC42MS0xLjc5LTQuNjEtNC42OVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NTUuOTUsNTkuODFjMC0xMi41NSw5LjMtMjEuOTQsMjMuMjItMjEuOTQsMi4zOSwwLDMuNzYuMjYsNS4zOC41MXYtMTguODZjMC0uNDMuMTctLjUxLjUxLS41MWg2LjE1Yy40MywwLC41MS4xNy41MS40M3Y1My43N2MwLDEuMiwwLDIuNjUuMTcsNC4xLDAsLjM0LS4wOS40My0uNDMuNi00Ljg3LDIuMy05LjY0LDMuMTYtMTQuNDIsMy4xNi0xMS44NywwLTIxLjA4LTcuMTctMjEuMDgtMjEuMjVaTTU4NC41NCw0NC44N2MtMS4zNy0uNi0zLjQyLS44NS01LjU1LS44NS05LjczLDAtMTUuNzksNi41Ny0xNS43OSwxNS40NSwwLDExLjEsNywxNS4zNiwxNC41MSwxNS4zNiwyLjIyLDAsNC44Ny0uMjYsNi44My0xLjExdi0yOC44NVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02MDIuOTgsMjYuMThjMC0yLjU2LDEuNzktNC4zNSw0LjM1LTQuMzUsMi43MywwLDQuMjcsMS44OCw0LjI3LDQuMzVzLTEuNzEsNC4zNS00LjM1LDQuMzUtNC4yNy0xLjc5LTQuMjctNC4zNVpNNjAzLjY2LDM5LjMyYzAtLjQzLjE3LS42LjYtLjZoNi4wNmMuMzQsMCwuNTEuMDkuNTEuNTF2NDAuMzdjMCwuNDMtLjA5LjYtLjYuNmgtNS44OWMtLjQzLDAtLjY4LS4xNy0uNjgtLjY4di00MC4yWiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTY0MS4xMyw3My4yMWMxMC41OC41MSwxNi41Niw0LjM1LDE2LjU2LDExLjg2LDAsOC41NC04LjExLDE1LjI4LTIwLjY2LDE1LjI4cy0xOC44Ni02LjY2LTE4Ljg2LTEyLjk3YzAtMi45LDIuNDgtNi43NCw4LjM3LTExLjY5LTEuMzctMS44OC0yLjA1LTQuMS0yLjA1LTYuNCwwLTEuODguNTEtMy43NiwxLjQ1LTUuMzgtMy41LTIuMy01LjgtNi4xNS01LjgtMTEuNTIsMC03Ljk0LDUuODktMTQuNTEsMTUuOTYtMTQuNTEsMi42NSwwLDQuODcuMzQsNi40LjY4Ljc3LjE3LDEuMjguMTcsMS43OS4xN2gxMi4wNGMuNDMsMCwuNTEuMTcuNTEuNTF2NC44N2MwLC4zNC0uMDguNTEtLjUxLjUxLTIuMjIsMC01LjgtLjE3LTcuODUtLjM0LDEuNTQsMS42MiwyLjk5LDQuMzUsMi45OSw4LjI4LDAsOS4zOS03LDE0LjA4LTE1LjQ1LDE0LjA4LTEuNjIsMC0zLjE2LS4xNy00LjY5LS41MS0uNDMsMS4wMi0uNiwyLjEzLS40MywzLjE2LjE3LDEuMjguNjgsMi40OCwxLjU0LDMuNWw4LjcxLjQzWk02MzAuNjMsNzguOTNjLTMuNSwyLjQ4LTUuNzIsNi4wNi01LjcyLDcuOTQsMCwzLjkzLDQuNjksNy45NCwxMi41NSw3Ljk0LDkuMzksMCwxMy41Ny00LjQ0LDEzLjU3LTguNzEsMC01LjA0LTUuMjktNi40LTExLjM1LTYuNzRsLTkuMDUtLjQzWk02MjcuMTMsNTIuM2MwLDUuMjEsMy4wNyw4Ljk2LDguNzksOC45Niw1LjM4LDAsOC43MS0zLjI0LDguNzEtOC43OSwwLTQuOTUtMi42NS05LjEzLTguNjItOS4xMy01LjM4LDAtOC44OCwzLjUtOC44OCw4Ljk2WiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTY2Mi45OCwyNi4xOGMwLTIuNTYsMS43OS00LjM1LDQuMzUtNC4zNSwyLjczLDAsNC4yNywxLjg4LDQuMjcsNC4zNXMtMS43MSw0LjM1LTQuMzUsNC4zNS00LjI3LTEuNzktNC4yNy00LjM1Wk02NjMuNjcsMzkuMzJjMC0uNDMuMTctLjYuNi0uNmg2LjA2Yy4zNCwwLC41MS4wOS41MS41MXY0MC4zN2MwLC40My0uMDkuNi0uNi42aC01Ljg5Yy0uNDMsMC0uNjgtLjE3LS42OC0uNjh2LTQwLjJaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzAxLjM5LDc5LjAxYzAsLjM0LS4wOC42OC0uNTEuODUtMS45Ni44NS00LjEsMS4xOS02LjQsMS4xOS02LjIzLDAtOS45OS0yLjk5LTkuOTktMTEuMTh2LTI1LjAxaC01LjhjLS41MS0uMDktLjYtLjI2LS42LS42OHYtNC44N2MwLS40My4xNy0uNi42LS42aDUuOGMuMDgtMy4xNi40My05LjA1Ljc3LTEwLjkzLjA4LS4zNC4yNi0uNTEuNi0uNmw1LjgtLjk0Yy4zNC0uMDguNTEsMCwuNTEuMzQtLjI2LDIuOTktLjUxLDcuOTQtLjUxLDEyLjEyaDkuMDVjLjM0LDAsLjUxLjE3LjUxLjZ2NS4wNGMwLC4zNC0uMTcuNTEtLjUxLjUxaC05LjA1djIzLjk5YzAsMy45MywxLjQ1LDYuMTUsNS4yMSw2LjE1LDEuMjgsMCwyLjU2LS4xNyw0LjAxLS42OC4yNi0uMDkuNTEtLjA5LjUxLjM0djQuMzVaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzM4LjE4LDcyLjk1YzAsMS40NSwwLDIuNzMuMTcsNC4xLDAsLjE3LDAsLjI2LS4xNy4zNC02LjE1LDIuOS0xMS4wMSwzLjY3LTE1Ljk2LDMuNjctOS4wNSwwLTE1Ljg4LTQuNDQtMTUuODgtMTMuNHM4LjQ1LTEzLjA2LDE5LjAzLTEzLjA2YzMuMTYsMCw0Ljk1LjA5LDUuODkuMTd2LTIuMDVjMC0yLjY1LTEuMjgtOC41NC05LjY1LTguNTQtNC4xLDAtNy44NS45NC0xMC44NCwyLjU2LS4yNi4wOC0uNiwwLS42LS40M3YtNS4yMWMwLS4zNC4xNy0uNTEuNDMtLjY4LDMuMzMtMS42Miw3LjYtMi41NiwxMi4xMi0yLjU2LDEwLjkzLDAsMTUuNDUsNy4xNywxNS40NSwxNi4wNXYxOS4wM1pNNzMxLjI3LDYwLjQxYy0xLjE5LS4xNy0zLjA3LS4zNC01LjYzLS4zNC04LjI4LDAtMTIuMjksMi44Mi0xMi4yOSw3LjYsMCwzLjg0LDIuNjUsNy42LDEwLjE2LDcuNiwyLjczLDAsNS4yOS0uNDMsNy43Ny0xLjQ1di0xMy40WiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTc1MC4xMywxOS41MmMwLS40My4xNy0uNTEuNi0uNTFoNS45OGMuNDMsMCwuNTEuMTcuNTEuNTF2NTEuNDdjMCwzLjMzLDEuMzcsNC4xLDMuNDEsNC4xLjYsMCwuOTQtLjA5LDEuNzEtLjI2LjI2LDAsLjM0LjE3LjM0LjUxdjQuNDRjMCwuNDMtLjA4LjUxLS40My42OC0uNzcuMzQtMi4xMy42LTMuOTMuNi00LjE4LDAtOC4xOS0xLjQ1LTguMTktOS40N1YxOS41MloiLz4KICA8L2c+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTMxLjU4LDY3LjY5bDMuNTctOS43N2MtLjc4LS42Ni0xLjQ0LTEuNDYtMS45My0yLjM3LS42MS0xLjE0LS45Ni0yLjQzLS45Ni0zLjgsMC0yLjIzLjktNC4yNCwyLjM2LTUuNywxLjQ2LTEuNDYsMy40OC0yLjM2LDUuNy0yLjM2czQuMjQuOSw1LjcsMi4zNmMxLjQ2LDEuNDYsMi4zNiwzLjQ4LDIuMzYsNS43LDAsMS4zNy0uMzUsMi42Ni0uOTYsMy44LS40OS45MS0xLjE0LDEuNzItMS45MywyLjM3bDMuNTcsOS43N2MuMjktLjI0LjU3LS40OC44NC0uNzMsMi42Mi0yLjQxLDQuMzgtNS40Miw0LjM4LTkuMjR2LTE5LjAzbC0xMy45Ni0zLjc0LTEzLjk2LDMuNzR2MTkuMDNjMCwzLjgyLDEuNzYsNi44Myw0LjM4LDkuMjQuMjcuMjUuNTUuNDkuODQuNzNNNDcuMiw2OS4wOWwtNC4zOS0xMi4wMS43NC0uNDljLjgtLjUzLDEuNDYtMS4yNSwxLjkxLTIuMS40NC0uODEuNjgtMS43NS42OC0yLjc0LDAtMS42LS42NS0zLjA2LTEuNy00LjExLTEuMDUtMS4wNS0yLjUtMS43LTQuMTEtMS43cy0zLjA2LjY1LTQuMTEsMS43Yy0xLjA1LDEuMDUtMS43LDIuNS0xLjcsNC4xMSwwLDEsLjI1LDEuOTMuNjgsMi43NC40NS44NCwxLjExLDEuNTYsMS45MSwyLjFsLjc0LjQ5LTQuMzksMTIuMDFjMi4xLDEuNDEsNC40OCwyLjU5LDYuODYsMy41OSwyLjM4LTEsNC43Ni0yLjE3LDYuODYtMy41OVpNNjIuMzYsMzEuMDljLS4xNS0uNC0uMjQtLjgzLS4yNS0xLjI4bC0xOC40My00Ljk0Yy0uNS44MS0xLjI4LDEuNDItMi4yMSwxLjd2Ni4zNWM0LjU3LDEuMjIsOS4xNSwyLjQ1LDEzLjcyLDMuNjhsNy4xOC01LjUxWk0xOC41NiwyOS44MWMtLjAxLjQ1LS4xLjg4LS4yNSwxLjI4bDcuMTgsNS41MWM0LjU3LTEuMjMsOS4xNS0yLjQ1LDEzLjcyLTMuNjh2LTYuMzVjLS45My0uMjgtMS43MS0uODktMi4yMS0xLjdsLTE4LjQzLDQuOTRaTTYyLjI3LDU2LjU5Yy4zOC0xLjI2LDEuMzctMi4yNSwyLjYzLTIuNjN2LTIwLjUxYy0uNDItLjEzLS44Mi0uMzItMS4xNy0uNThsLTcuMTcsNS41MXYxOC4yMWg1LjcxWk0xNS43Nyw1My45NmMxLjI2LjM4LDIuMjUsMS4zNywyLjYzLDIuNjNoNS43MXYtMTguMjFsLTcuMTgtNS41MWMtLjM1LjI1LS43NC40NS0xLjE3LjU4djIwLjUxWk0zNy4yMyw4Mi44MWMuNDktLjY0LDEuMTgtMS4xMiwxLjk3LTEuMzV2LTYuODJjLTMuNjEtMS41My03LjIxLTMuNDctOS45OC02LjAyLTIuOC0yLjU4LTQuNzYtNS43Ni01LjA3LTkuNzdoLTUuNzZjLS4zNSwxLjE3LTEuMjMsMi4xMS0yLjM2LDIuNTQuODUsNS41MSwzLjYsOS44Miw3LjQsMTMuMjUsMy44MiwzLjQ2LDguNzEsNi4wNywxMy43OSw4LjE2Wk00NC4yNSw4NC45MWMwLC4xLjAxLjIxLjAxLjMxLDAsMi4xNy0xLjc2LDMuOTItMy45MiwzLjkycy0zLjkyLTEuNzYtMy45Mi0zLjkyYzAtLjEsMC0uMjEuMDEtLjMxLTUuMy0yLjE4LTEwLjQzLTQuOTItMTQuNDktOC42LTQuMjEtMy44MS03LjI2LTguNi04LjE1LTE0Ljc2LTEuNzUtLjM5LTMuMDctMS45Ni0zLjA3LTMuODMsMC0xLjc4LDEuMTgtMy4yNywyLjgtMy43NnYtMjAuNTFjLTEuNjItLjQ4LTIuOC0xLjk4LTIuOC0zLjc2LDAtMi4xNywxLjc2LTMuOTIsMy45Mi0zLjkyLDEuNDEsMCwyLjY1Ljc0LDMuMzQsMS44Niw2LjE0LTEuNjUsMTIuMjktMy4yOSwxOC40My00Ljk0LjA2LTIuMTEsMS43OS0zLjgxLDMuOTItMy44MXMzLjg2LDEuNjksMy45MiwzLjgxYzYuMTQsMS42NCwxMi4yOSwzLjI5LDE4LjQzLDQuOTQuNjktMS4xMiwxLjkzLTEuODYsMy4zNC0xLjg2LDIuMTcsMCwzLjkyLDEuNzYsMy45MiwzLjkyLDAsMS43OC0xLjE4LDMuMjctMi44LDMuNzZ2MjAuNTFjMS42Mi40OCwyLjgsMS45OCwyLjgsMy43NiwwLDEuODctMS4zMSwzLjQ0LTMuMDcsMy44My0uODksNi4xNS0zLjk0LDEwLjk0LTguMTUsMTQuNzYtNC4wNiwzLjY3LTkuMTksNi40Mi0xNC40OSw4LjZaTTQzLjQzLDgyLjgxYzUuMDgtMi4wOSw5Ljk3LTQuNywxMy43OS04LjE2LDMuOC0zLjQ0LDYuNTUtNy43NCw3LjQtMTMuMjUtMS4xMy0uNDMtMi4wMS0xLjM3LTIuMzYtMi41NGgtNS43NmMtLjMxLDQtMi4yNyw3LjE5LTUuMDcsOS43Ny0yLjc3LDIuNTUtNi4zNyw0LjQ5LTkuOTgsNi4wMnY2LjgyYy43OS4yNCwxLjQ4LjcyLDEuOTcsMS4zNVoiLz4KPC9zdmc+" alt="SafeTransact.digital" class="brand-logo-img">
+  </a>
+  <!-- Hamburger button (tablet/mobile) -->
+  <button type="button" class="nav-hamburger" id="navHamburger" aria-label="Abrir menú" aria-expanded="false">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line class="hamburger-line hamburger-line-1" x1="3" y1="6" x2="21" y2="6"/>
+      <line class="hamburger-line hamburger-line-2" x1="3" y1="12" x2="21" y2="12"/>
+      <line class="hamburger-line hamburger-line-3" x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li class="nav-close-item">
+      <button type="button" class="nav-close" id="navCloseBtn" aria-label="Cerrar menú">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </li>
+    <li><a href="#que-es">Qué es</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#normativa">Normativa</a></li>
+    <li><a href="#sectores">Sectores</a></li>
+    <li><a href="#contacto" class="nav-cta">Contactar</a></li>
+  </ul>
+</nav>
+<!-- Mobile menu overlay -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ── HERO ─────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">QTSP Cualificado · Reglamento eIDAS 2.0</div>
+    <h1 class="hero-title">
+      Custodia y Preservación<br>
+      <em>Cualificada</em> de Firmas<br>
+      Electrónicas
+    </h1>
+    <p class="hero-desc">
+      Garantizamos la validez jurídica a largo plazo de sus firmas electrónicas cualificadas. Como Prestador Cualificado de Servicios de Confianza, preservamos la integridad y autenticidad de sus documentos más allá de la caducidad criptográfica.
+    </p>
+    <div class="hero-actions">
+      <a href="#servicios" class="btn-primary">Explorar servicios →</a>
+      <a href="#que-es" class="btn-secondary">¿Qué es la preservación cualificada?</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="document-stack">
+      <!-- Background cards -->
+      <div class="doc-card doc-card-1">
+        <div class="doc-header">
+          <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="doc-title-small">CONTRATO_2019.pdf</div>
+        </div>
+        <div class="doc-lines">
+          <div class="doc-line long"></div>
+          <div class="doc-line medium"></div>
+          <div class="doc-line short"></div>
+        </div>
+      </div>
+
+      <div class="doc-card doc-card-3">
+        <div class="doc-header">
+          <div class="doc-icon" style="background:var(--gold)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="m4 7 8-4 8 4"/><path d="M4 7L2 13h4z"/><path d="M20 7l-2 6h4z"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
+          <div class="doc-title-small">FACTURA_ELECT.xml</div>
+        </div>
+        <div class="doc-lines">
+          <div class="doc-line medium"></div>
+          <div class="doc-line long"></div>
+        </div>
+      </div>
+
+      <!-- Main card -->
+      <div class="doc-card doc-card-main">
+        <div class="doc-header">
+          <div class="doc-icon" style="background:var(--teal)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="doc-title-small">PRESERVADO_QTS · eIDAS válido</div>
+        </div>
+        <div class="doc-lines">
+          <div class="doc-line long"></div>
+          <div class="doc-line medium"></div>
+          <div class="doc-line long"></div>
+          <div class="doc-line short"></div>
+          <div class="doc-line gold"></div>
+        </div>
+        <div class="doc-seal">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" stroke="#b89a4e" stroke-width="2"/>
+            <circle cx="24" cy="24" r="16" stroke="#b89a4e" stroke-width="1" stroke-dasharray="3 2"/>
+            <text x="24" y="20" text-anchor="middle" font-size="8" fill="#b89a4e" font-family="serif">QTS</text>
+            <text x="24" y="30" text-anchor="middle" font-size="6" fill="#b89a4e" font-family="monospace">eIDAS</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="doc-card doc-card-2">
+        <div class="doc-header">
+          <div class="doc-icon" style="background:#555"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6z"/><path d="M12 2v4h4"/><path d="M4 6v14a2 2 0 0 0 2 2h10"/></svg></div>
+          <div class="doc-title-small">ESCRITURA_2021.pdf</div>
+        </div>
+        <div class="doc-lines">
+          <div class="doc-line long"></div>
+          <div class="doc-line short"></div>
+          <div class="doc-line medium"></div>
+        </div>
+      </div>
+
+      <!-- Shield badge -->
+      <div class="shield-badge">
+        <div class="shield-badge-inner">
+          <span><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#b89a4e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span>QTSP<br>CERTIFIED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST STRIP ───────────────────────────────────────────────── -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <div class="trust-dot"></div>
+    Reconocido por la Lista de Confianza Europea (TSL)
+  </div>
+  <div class="trust-item">
+    <div class="trust-dot"></div>
+    Certificado ETSI EN 319 102-2
+  </div>
+  <div class="trust-item">
+    <div class="trust-dot"></div>
+    Reglamento (UE) 910/2014 eIDAS
+  </div>
+  <div class="trust-item">
+    <div class="trust-dot"></div>
+    ISO/IEC 27001 · ISO 9001
+  </div>
+</div>
+
+<!-- ── PROBLEM SECTION ───────────────────────────────────────────── -->
+<section id="problema" style="padding: 6rem 3rem;">
+  <div class="problem-section">
+    <div class="fade-in">
+      <div class="section-label">El problema</div>
+      <h2 class="section-title">Las firmas caducan.<br>La validez jurídica <em>no debería</em>.</h2>
+      <p class="problem-body">
+        Una firma electrónica cualificada creada hoy podría quedar sin validez verificable en el futuro. Los algoritmos criptográficos son atacados y superados con el tiempo. Los certificados expiran. Las claves privadas pueden comprometerse. Sin un sistema activo de preservación, sus documentos firmados pierden su valor probatorio justo cuando más los necesita.
+      </p>
+    </div>
+    <div class="problem-cards fade-in">
+      <div class="problem-card">
+        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14"/><path d="M5 21h14"/><path d="M7 3l5 9-5 9"/><path d="M17 3l-5 9 5 9"/></svg> Obsolescencia criptográfica</h4>
+        <p>Los algoritmos de firma (RSA, SHA-256, ECDSA) pierden fortaleza con el avance tecnológico. Una firma creada hoy podría ser cuestionada en 10-15 años sin evidencia de preservación.</p>
+      </div>
+      <div class="problem-card">
+        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Expiración de certificados</h4>
+        <p>Los certificados cualificados tienen una vida útil limitada. Tras su vencimiento, demostrar que la firma era válida en el momento de la firma requiere evidencia adicional preservada.</p>
+      </div>
+      <div class="problem-card">
+        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="m4 7 8-4 8 4"/><path d="M4 7L2 13h4z"/><path d="M20 7l-2 6h4z"/><line x1="8" y1="21" x2="16" y2="21"/></svg> Riesgo en litigios</h4>
+        <p>En una disputa legal, la carga de probar la integridad y autenticidad de un documento firmado electrónicamente recae sobre quien lo presenta. Sin preservación cualificada, ese reto puede ser imposible.</p>
+      </div>
+      <div class="problem-card">
+        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg> Cambios regulatorios</h4>
+        <p>Las normas técnicas evolucionan. eIDAS 2.0 establece nuevas exigencias. La preservación cualificada adapta continuamente las evidencias de validación a los marcos normativos vigentes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+
+<!-- ── WHAT IS ─────────────────────────────────────────────────── -->
+<section id="que-es" class="what-section">
+  <div class="what-inner fade-in">
+    <div class="section-label">Definición</div>
+    <h2 class="section-title">La Preservación Cualificada:<br>mucho más que almacenamiento</h2>
+    <p class="what-quote">
+      El servicio de preservación de firmas electrónicas cualificadas garantiza la validez a largo plazo de las firmas electrónicas cualificadas, más allá del período de validez tecnológica
+    </p>
+    <p style="opacity:0.7; font-size:0.9rem; margin-top:-0.5rem;">— Reglamento (UE) 910/2014 eIDAS, Art. 34</p>
+
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-card-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4b87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <h3>Recolección de evidencias</h3>
+        <p>Reunimos y verificamos todos los datos de validación necesarios en el momento exacto de la firma: estado del certificado (OCSP), lista de revocación (CRL), cadena de confianza completa y sello de tiempo cualificado.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-card-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4b87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg></div>
+        <h3>Protección del estado de validez</h3>
+        <p>Garantizamos que el estado de validez permanece inalterable con el tiempo. Monitorizamos continuamente la fortaleza de los algoritmos criptográficos en uso y reforzamos las evidencias cuando es necesario.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-card-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4b87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+        <h3>Demostración de integridad</h3>
+        <p>Permitimos demostrar que los datos firmados son íntegros y han permanecido intactos desde el momento de la firma, incluso si la clave del firmante fue posteriormente comprometida o el algoritmo quebrado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ────────────────────────────────────────────── -->
+<section id="como-funciona">
+  <div class="how-header fade-in">
+    <div>
+      <div class="section-label">El proceso</div>
+      <h2 class="section-title">Cómo funciona la<br><em>preservación activa</em></h2>
+    </div>
+    <a href="#contacto" class="btn-primary" style="align-self:flex-end">Solicitar demo →</a>
+  </div>
+
+  <div class="how-steps fade-in">
+    <div class="how-step">
+      <div class="how-step-num">01</div>
+      <h3>Ingesta del documento firmado</h3>
+      <p>Recibimos su documento con firma electrónica cualificada (XAdES, PAdES, CAdES) vía API REST segura o plataforma SaaS. El sistema verifica su integridad desde el primer instante.</p>
+      <div class="how-step-arrow">→</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">02</div>
+      <h3>Validación y captura de evidencias</h3>
+      <p>Aplicamos nuestro servicio cualificado de validación (QVSP) acreditado en la Lista de Confianza. Capturamos el estado de revocación, la cadena PKI completa y el sello de tiempo RFC 3161.</p>
+      <div class="how-step-arrow">→</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">03</div>
+      <h3>Custodia con re-sellado periódico</h3>
+      <p>Almacenamos las evidencias en infraestructura certificada y monitorizamos la fortaleza criptográfica. Ante cualquier debilitamiento, re-sellamos automáticamente con nuevos algoritmos seguros.</p>
+      <div class="how-step-arrow">→</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">04</div>
+      <h3>Acceso y prueba en cualquier momento</h3>
+      <p>Cuando lo necesite —en un litigio, auditoría o proceso regulatorio— le proporcionamos un informe de validación cualificado con pleno valor probatorio reconocido en toda la UE.</p>
+      <div class="how-step-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+
+<!-- ── SERVICES ────────────────────────────────────────────────── -->
+<section id="servicios" class="services-section">
+  <div class="services-header fade-in">
+    <div class="section-label">Nuestros servicios</div>
+    <h2 class="section-title">Una suite completa de<br>servicios de confianza <em>cualificados</em></h2>
+  </div>
+
+  <div class="services-grid fade-in">
+
+    <div class="service-card featured">
+      <div class="service-num">01 · PRINCIPAL</div>
+      <h3>Preservación Cualificada de Firmas (QPSS)</h3>
+      <p>Servicio central de preservación a largo plazo conforme al Art. 34 del Reglamento eIDAS. Mantiene activa la validez jurídica de sus firmas y sellos electrónicos cualificados durante décadas, con re-sellado automático y monitoring algorítmico continuo.</p>
+      <a href="#contacto" class="service-link">Solicitar acceso →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <h3>Validación Cualificada de Firmas (QVSP)</h3>
+      <p>Verificación de la autenticidad y validez de firmas electrónicas cualificadas conforme a ETSI EN 319 102-1. Resultado con plena eficacia jurídica y reconocimiento transfronterizo en toda la UE bajo eIDAS.</p>
+      <a href="#contacto" class="service-link">Conocer más →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <h3>Sellado de Tiempo Cualificado (QTSA)</h3>
+      <p>Timestamping conforme a RFC 3161 y ETSI EN 319 421. Certifica el momento exacto de existencia de datos con presunción legal de exactitud de la fecha y hora según eIDAS Art. 41.</p>
+      <a href="#contacto" class="service-link">Conocer más →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <h3>Custodia Documental con Valor Probatorio</h3>
+      <p>Sistema de archivo electrónico (EAS/EDS) que garantiza la integridad, autenticidad, legibilidad y accesibilidad de sus documentos digitales a lo largo de todo el período de retención legal exigido.</p>
+      <a href="#contacto" class="service-link">Conocer más →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <h3>Entrega Electrónica Certificada Cualificada</h3>
+      <p>Servicio de entrega fehacientemente acreditado (QEDS) que proporciona plena evidencia de envío, recepción e integridad del contenido con equivalencia al burofax y reconocimiento legal en toda la UE.</p>
+      <a href="#contacto" class="service-link">Conocer más →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <h3>API de Integración y PKI as a Service</h3>
+      <p>Integración transparente mediante API REST para sistemas de gestión documental, ERP, plataformas jurídicas y aplicaciones empresariales. Convierta su organización en un Prestador Cualificado con nuestra PKI as a Service.</p>
+      <a href="#contacto" class="service-link">Ver documentación →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── WHY QTSP ────────────────────────────────────────────────── -->
+<section id="por-que-qtsp">
+  <div class="qtsp-section fade-in">
+    <div class="qtsp-left">
+      <div class="section-label">¿Por qué un QTSP?</div>
+      <h2 class="section-title">Solo un Prestador Cualificado puede<br>garantizar <em>eficacia jurídica plena</em></h2>
+      <ul class="qtsp-list">
+        <li>
+          <div class="qtsp-check">✓</div>
+          <div>
+            <strong>Presunción legal de validez</strong>
+            <p>Los servicios prestados por QTSPs inscritos en la Lista de Confianza europea gozan de presunción de conformidad legal en todos los Estados miembros de la UE sin necesidad de demostración adicional.</p>
+          </div>
+        </li>
+        <li>
+          <div class="qtsp-check">✓</div>
+          <div>
+            <strong>Auditoría y supervisión independiente</strong>
+            <p>Somos auditados por organismos de evaluación de la conformidad (CABs) acreditados. La supervisión de las autoridades nacionales competentes garantiza el cumplimiento permanente de los estándares ETSI.</p>
+          </div>
+        </li>
+        <li>
+          <div class="qtsp-check">✓</div>
+          <div>
+            <strong>Reconocimiento transfronterizo automático</strong>
+            <p>Un documento preservado por nosotros es jurídicamente válido en los 27 Estados miembros de la UE sin trámite adicional. Facilitamos también la interoperabilidad con terceros países bajo acuerdos de equivalencia.</p>
+          </div>
+        </li>
+        <li>
+          <div class="qtsp-check">✓</div>
+          <div>
+            <strong>Responsabilidad y seguro de daños</strong>
+            <p>Como QTSP, asumimos responsabilidad legal por el correcto funcionamiento de los servicios cualificados que prestamos. Nuestras pólizas de responsabilidad civil cubren posibles daños derivados de la prestación del servicio.</p>
+          </div>
+        </li>
+        <li>
+          <div class="qtsp-check">✓</div>
+          <div>
+            <strong>Preparados para eIDAS 2.0</strong>
+            <p>Nuestros servicios están adaptados al nuevo marco eIDAS 2.0 y al ecosistema EUDI Wallet. Monitorizamos continuamente la evolución normativa y actualizamos nuestros sistemas para garantizar la conformidad permanente.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="qtsp-right">
+      <div class="qtsp-stat">
+        <div class="qtsp-stat-num">27</div>
+        <div class="qtsp-stat-label">Estados miembros de la UE con validez</div>
+      </div>
+      <div class="qtsp-stat">
+        <div class="qtsp-stat-num">30+</div>
+        <div class="qtsp-stat-label">Años de vida documental garantizados</div>
+      </div>
+      <div class="qtsp-stat">
+        <div class="qtsp-stat-num">99.9%</div>
+        <div class="qtsp-stat-label">SLA de disponibilidad del servicio</div>
+      </div>
+      <div class="qtsp-stat">
+        <div class="qtsp-stat-num">9/9</div>
+        <div class="qtsp-stat-label">Servicios cualificados eIDAS acreditados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REGULATIONS ─────────────────────────────────────────────── -->
+<section id="normativa" class="reg-section">
+  <div class="reg-inner fade-in">
+    <div>
+      <div class="section-label">Marco normativo</div>
+      <h2 class="section-title">Cumplimiento<br>regulatorio<br><em>integral</em></h2>
+      <p style="margin-top:1.5rem; opacity:0.65; font-size:0.9rem; line-height:1.8;">
+        La custodia y preservación cualificada de firmas electrónicas está regulada por un ecosistema normativo europeo que garantiza la interoperabilidad, la seguridad y el reconocimiento legal transfronterizo.
+      </p>
+    </div>
+
+    <div class="reg-list">
+      <div class="reg-item">
+        <div class="reg-tag">eIDAS · Art. 34</div>
+        <div class="reg-item-body">
+          <h4>Reglamento (UE) 910/2014 — Artículo 34</h4>
+          <p>Define específicamente el servicio cualificado de preservación de firmas electrónicas cualificadas. Establece que solo un QTSP puede proporcionar este servicio con plenos efectos jurídicos en la UE. eIDAS 2.0 amplía y refuerza estas disposiciones.</p>
+        </div>
+      </div>
+      <div class="reg-item">
+        <div class="reg-tag">ETSI EN 319 102-2</div>
+        <div class="reg-item-body">
+          <h4>Norma Técnica de Validación de Firmas Avanzadas</h4>
+          <p>Especificación técnica de ETSI que define los procedimientos para la creación, validación y preservación de evidencias de firma electrónica conforme a eIDAS. Nuestra plataforma implementa la totalidad de los perfiles normativos.</p>
+        </div>
+      </div>
+      <div class="reg-item">
+        <div class="reg-tag">ETSI EN 319 401</div>
+        <div class="reg-item-body">
+          <h4>Requisitos Generales para Prestadores de Servicios de Confianza</h4>
+          <p>Marco de políticas y prácticas que rigen la operación de los Prestadores de Servicios de Confianza cualificados. Cubre la gestión de riesgos, la continuidad del servicio, la seguridad de la información y la auditoría.</p>
+        </div>
+      </div>
+      <div class="reg-item">
+        <div class="reg-tag">ETSI EN 319 521/532</div>
+        <div class="reg-item-body">
+          <h4>Requisitos para Prestadores de Archivado y Preservación Electrónica</h4>
+          <p>Estándar técnico específico para servicios de archivo electrónico con valor probatorio (EAS/EDS) y preservación cualificada de firmas. Define las obligaciones técnicas y organizativas de los prestadores.</p>
+        </div>
+      </div>
+      <div class="reg-item">
+        <div class="reg-tag">ISO 27001 · GDPR</div>
+        <div class="reg-item-body">
+          <h4>Seguridad de la Información y Protección de Datos</h4>
+          <p>Operamos con certificación ISO/IEC 27001 para la gestión de la seguridad de la información. El tratamiento de documentos y datos personales cumple íntegramente el Reglamento General de Protección de Datos (RGPD).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTORS ─────────────────────────────────────────────────── -->
+<section id="sectores" class="sectors-section">
+  <div class="fade-in" style="max-width:600px; margin-bottom:3.5rem;">
+    <div class="section-label">Casos de uso</div>
+    <h2 class="section-title">Preservación cualificada en<br>todos los <em>sectores críticos</em></h2>
+  </div>
+
+  <div class="sectors-grid fade-in">
+    <div class="sector-card">
+      <div class="sector-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M12 3l9 7H3z"/><line x1="6" y1="10" x2="6" y2="21"/><line x1="10" y1="10" x2="10" y2="21"/><line x1="14" y1="10" x2="14" y2="21"/><line x1="18" y1="10" x2="18" y2="21"/></svg></div>
+      <h3>Banca y Finanzas</h3>
+      <p>Preservación de contratos de préstamo, acuerdos de crédito, órdenes de pago y documentación KYC con validez probatoria a largo plazo para auditorías regulatorias.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="m4 7 8-4 8 4"/><path d="M4 7L2 13h4z"/><path d="M20 7l-2 6h4z"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
+      <h3>Legal y Notarial</h3>
+      <p>Escrituras, poderes notariales, contratos mercantiles y testamentos firmados electrónicamente con custodia cualificada que garantiza su valor probatorio en litigios futuros.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+      <h3>Salud y Ciencias de la Vida</h3>
+      <p>Historia clínica electrónica, consentimientos informados, ensayos clínicos y prescripciones. Cumplimiento de plazos de conservación sanitaria con plena trazabilidad.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10"/><path d="M19 21V10"/><path d="M9 21V10"/><path d="M15 21V10"/><path d="M12 3L2 10h20z"/></svg></div>
+      <h3>Administración Pública</h3>
+      <p>Expedientes administrativos, actos resolutorios, notificaciones y subvenciones. Garantía de acceso y autenticidad durante todo el período de conservación reglamentaria.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/><line x1="9" y1="14" x2="9" y2="14.01"/><line x1="15" y1="14" x2="15" y2="14.01"/><path d="M9 22v-4h6v4"/></svg></div>
+      <h3>Real Estate</h3>
+      <p>Contratos de compraventa, arrendamientos, certificados de eficiencia energética y documentación registral preservados para el ciclo de vida completo del inmueble.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 4v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+      <h3>Logística y Transporte</h3>
+      <p>CMR electrónicos, albaranes de entrega y documentación aduanera. Preservación de evidencias de trazabilidad para reclamaciones y auditorías de la cadena de suministro.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <h3>Energía y Utilities</h3>
+      <p>Contratos de suministro, acuerdos de conexión a red, facturas electrónicas y documentación regulatoria con valor probatorio durante toda la vida de la instalación.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6"/><path d="M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <h3>Educación y Certificación</h3>
+      <p>Títulos académicos, certificados de formación, expedientes universitarios y diplomas profesionales con preservación que garantiza su verificabilidad permanente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ─────────────────────────────────────────────────────── -->
+<section id="contacto" class="cta-section">
+  <div class="cta-inner fade-in">
+    <div class="section-label">Siguiente paso</div>
+    <h2 class="section-title section-title">Sus documentos firmados<br>merecen <em>protección eterna</em></h2>
+    <p class="cta-desc">
+      Hable con nuestros especialistas en servicios de confianza cualificados y descubra cómo SafeTransact.digital puede garantizar la validez perpetua de sus firmas electrónicas más críticas.
+    </p>
+    <div class="cta-actions">
+      <a href="mailto:contact@safetransact.digital" class="btn-primary">Contactar con un especialista →</a>
+      <a href="#servicios" class="btn-outline">Ver todos los servicios</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:0.5rem;">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDc4MS41MyAxMDcuNjYiPgogIDwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAzMC4yLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiAyLjEuMSBCdWlsZCAxKSAgLS0+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5zdDAgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KCiAgICAgIC5zdDEgewogICAgICAgIGZpbGw6ICNhODg4M2E7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxnPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTkyLjIxLDc3Ljk5Yy0uNDMtLjI2LS42LS42LS42LTEuMjh2LTguODhjMC0uMzQuMzQtLjUxLjY4LS4zNCw0LjYxLDIuOTksMTAuMjQsNC40NCwxNS4xOSw0LjQ0LDcsMCw5Ljk5LTIuNzMsOS45OS02LjQsMC0zLjE2LTIuMDUtNS41NS04LjU0LTguMjhsLTQuMS0xLjcxYy0xMC41LTQuNDQtMTMuMjMtOS43My0xMy4yMy0xNi4xMywwLTkuMTMsNi45MS0xNi4xMywxOS44LTE2LjEzLDUuMzgsMCwxMC4yNC43NywxMy4wNiwyLjIyLjQzLjI2LjUxLjUxLjUxLDEuMTF2OC4yOGMwLC4zNC0uMjYuNjgtLjc3LjM0LTMuMjQtMS44OC03Ljk0LTIuODItMTIuODktMi44Mi03LjM0LDAtOS42NSwzLjA3LTkuNjUsNi4wNnMxLjk2LDUuMjEsOC43MSw4LjAybDMuMjQsMS4zN2MxMS4xLDQuNjEsMTQuMjUsOS45OSwxNC4yNSwxNi43MywwLDkuOTktNy44NSwxNi40Ny0yMC43NCwxNi40Ny02LjIzLDAtMTEuNDQtMS4xOS0xNC45NC0zLjA3WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTE2OC45NCw3MS41YzAsMS44OCwwLDMuNTguMTcsNS4zOCwwLC4xNywwLC4yNi0uMTcuMzQtNywyLjk5LTExLjk1LDMuODQtMTcuNzUsMy44NC05LjMsMC0xNi43My00LjM1LTE2LjczLTE0LDAtOS4wNSw4LjExLTEzLjU3LDE5LjIxLTEzLjU3LDIuNTYsMCw0LjUyLjA4LDUuMjkuMTd2LTEuMDJjMC0xLjk2LTEuMTEtNi40LTguNjItNi40LTQuMjcsMC04LjAyLjg1LTExLjE4LDIuMzktLjI2LjA5LS42OCwwLS42OC0uNTF2LTcuNDNjMC0uNDMuMDktLjYuNTEtLjg1LDMuNjctMS43MSw4LjM2LTIuNTYsMTIuOTctMi41NiwxMS44NiwwLDE2Ljk5LDcuNDMsMTYuOTksMTYuOXYxNy4zM1pNMTU4Ljk1LDYxLjQzYy0xLjI4LS4xNy0yLjczLS4yNi00LjY5LS4yNi02Ljc0LDAtOS43MywyLjIyLTkuNzMsNS44OSwwLDMuMTYsMi4yMiw1Ljg5LDguMzcsNS44OSwyLjIyLDAsNC4xOC0uMjYsNi4wNi0xLjAydi0xMC41WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTE3NS4zNCw0Ni43NWMtLjQzLDAtLjUxLS4xNy0uNTEtLjZ2LTcuNTFjMC0uNDMuMTctLjUxLjUxLS41MWg1LjIxdi0xLjk2YzAtNC4yNy42OC03LjQzLDEuODgtOS45OSwyLjIyLTQuNjEsNi4xNS03LjUxLDEyLjYzLTcuNTEsMS43MSwwLDMuMjQuMDksNC4xOC41MS41MS4xNy41MS40My41MS44NXY3LjM0YzAsLjM0LS4xNy42LS42LjQzLS44NS0uMTctMS44OC0uMjYtMi42NS0uMjYtMy41LDAtNS42MywxLjg4LTUuNjMsNy43N3YyLjgyaDcuNTFjLjYsMCwuNjguMTcuNjguNTF2Ny41MWMwLC40My0uMTcuNTEtLjY4LjZoLTcuNTF2MzIuNzhjMCwuNDMtLjA5LjY4LS43Ny42OGgtOC44OGMtLjUxLDAtLjY4LS4yNi0uNjgtLjY4di0zMi43OGgtNS4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yMTIuNjQsNjEuNTFjLjI2LDUuOTgsNC4xOCwxMC43NSwxMi44OSwxMC43NSwzLjg0LDAsNy4zNC0uNjgsMTAuNTgtMi4wNS4yNi0uMTcuNTEtLjA5LjUxLjM0djcuMDhjMCwuNTEtLjE3Ljc3LS41MS45NC0zLjI0LDEuNTQtNywyLjQ4LTEyLjgsMi40OC0xNS41NCwwLTIxLjA4LTEwLjkzLTIxLjA4LTIxLjQyLDAtMTEuODYsNy4xNy0yMi4zNiwyMC4wNi0yMi4zNnMxNy41LDkuOSwxNy41LDE4LjAxYzAsMi4zOS0uMDgsNC4zNS0uMzQsNS4yOS0uMDkuMzQtLjI2LjUxLS42OC42LTEuMi4yNi00LjYxLjM0LTguNzkuMzRoLTE3LjMzWk0yMjUuMzYsNTQuMTdjMy4yNCwwLDQuMzUsMCw0LjY5LS4wOXYtLjY4YzAtMi40OC0xLjcxLTcuOTQtOC4xOS03Ljk0LTUuODksMC04LjU0LDQuNTItOS4yMiw4LjcxaDEyLjcyWiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTI1NC4wNCwzMy40M2gtMTcuMzNjLS40MywwLS42LS4yNi0uNTEtLjY4bDEuMTEtNy45NGMuMDktLjUxLjI2LS42OC43Ny0uNjhoNDIuNDJjLjUxLDAsLjc3LjE3Ljg1Ljc3bC43Nyw3Ljc3Yy4wOS41MS0uMTcuNzctLjYuNzdoLTE3LjI0djQ2LjAxYzAsLjUxLS4yNi43Ny0uNjguNzdoLTguNzljLS42LjA5LS43Ny0uMTctLjc3LS43N3YtNDYuMDFaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjkwLjIzLDM4LjEzYy41MSwwLC43Ny4xNy45NC42OC40MywxLjExLjc3LDMuMjQuODUsNS4xMiwyLjktMy41OCw3Ljc3LTYuNjYsMTMuNjYtNi42Ni41MSwwLC42OC4wOS42OC42djkuMDVjMCwuNDMtLjE3LjYtLjc3LjYtNi4wNi0uMTctMTEuMSwxLjk2LTEzLjA2LDQuNTJ2MjcuNDljMCwuNTEtLjI2LjY4LS43Ny42OGgtOC44OGMtLjYsMC0uNzctLjI2LS43Ny0uNjh2LTI5LjQ1YzAtMy42Ny0uMDktOC42Mi0uNDMtMTEuNDQsMC0uNDMuMDktLjUxLjUxLS41MWg4LjAyWiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTM0My4wNyw3MS41YzAsMS44OCwwLDMuNTguMTcsNS4zOCwwLC4xNywwLC4yNi0uMTcuMzQtNywyLjk5LTExLjk1LDMuODQtMTcuNzUsMy44NC05LjMsMC0xNi43My00LjM1LTE2LjczLTE0LDAtOS4wNSw4LjExLTEzLjU3LDE5LjIxLTEzLjU3LDIuNTYsMCw0LjUyLjA4LDUuMjkuMTd2LTEuMDJjMC0xLjk2LTEuMTEtNi40LTguNjItNi40LTQuMjcsMC04LjAyLjg1LTExLjE4LDIuMzktLjI2LjA5LS42OCwwLS42OC0uNTF2LTcuNDNjMC0uNDMuMDktLjYuNTEtLjg1LDMuNjctMS43MSw4LjM2LTIuNTYsMTIuOTctMi41NiwxMS44NiwwLDE2Ljk5LDcuNDMsMTYuOTksMTYuOXYxNy4zM1pNMzMzLjA4LDYxLjQzYy0xLjI4LS4xNy0yLjczLS4yNi00LjY5LS4yNi02Ljc0LDAtOS43MywyLjIyLTkuNzMsNS44OSwwLDMuMTYsMi4yMiw1Ljg5LDguMzcsNS44OSwyLjIyLDAsNC4xOC0uMjYsNi4wNi0xLjAydi0xMC41WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTM1My44Miw0Ny45NGMwLTIuOS0uMTctNy41MS0uMzQtOS4yMiwwLS40My4wOS0uNi42LS42aDcuNzdjLjYsMCwuODUuMTcsMS4wMi42LjI2Ljc3LjQzLDEuODguNiwzLjI0LDMuNjctMy4wNyw3Ljc3LTQuNjksMTIuMzgtNC42OSw2LjQsMCwxNC4yNSwzLjI0LDE0LjI1LDE2Ljl2MjUuMjdjMCwuNi0uMjYuNzctLjY4Ljc3aC04Ljg4Yy0uNTEsMC0uNzctLjI2LS43Ny0uNzd2LTI0LjMzYzAtNS42My0yLjM5LTguODgtNy4zNC04Ljg4LTMuNDEsMC02LjIzLDEuMjgtOC4yOCwzLjV2MjkuNzljMCwuNDMtLjI2LjY4LS42OC42OGgtOC45NmMtLjUxLDAtLjY4LS4yNi0uNjgtLjY4di0zMS41OFoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik00MTQuMTcsNDUuNTVjLTQuNTIsMC02LjA2LDEuODgtNi4wNiwzLjY3czEuMjgsMy4xNiw2Ljc0LDUuMjljOS43MywzLjU5LDEzLjA2LDcuNDMsMTMuMDYsMTMuNDksMCw4LjAyLTYuMzIsMTMuMDYtMTYuODIsMTMuMDYtNS4wNCwwLTkuNDctLjk0LTEyLjA0LTIuMzktLjQzLS4yNi0uNi0uNDMtLjYtLjk0di04LjExYzAtLjQzLjM0LS42LjY4LS40MywzLjY3LDIuMzksOC4zNywzLjQxLDEyLjIxLDMuNDEsNC40NCwwLDYuNTctMS41NCw2LjU3LTMuNzZzLTEuNjItMy41LTYuOTEtNS42M2MtOS4zLTMuNDEtMTIuNjMtNy4yNi0xMi42My0xMy40LDAtNi40OSw1LjI5LTEyLjU1LDE1Ljk2LTEyLjU1LDQuOTUsMCw4LjcxLjY4LDEwLjc1LDEuNzEuNDMuMjYuNTEuNi41MSwxLjAydjcuNTFjMCwuNDMtLjI2LjY4LS43Ny41MS0yLjY1LTEuNDUtNi45MS0yLjQ4LTEwLjY3LTIuNDhaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNDY4LjExLDcxLjVjMCwxLjg4LDAsMy41OC4xNyw1LjM4LDAsLjE3LDAsLjI2LS4xNy4zNC03LDIuOTktMTEuOTUsMy44NC0xNy43NSwzLjg0LTkuMywwLTE2LjczLTQuMzUtMTYuNzMtMTQsMC05LjA1LDguMTEtMTMuNTcsMTkuMjEtMTMuNTcsMi41NiwwLDQuNTIuMDgsNS4yOS4xN3YtMS4wMmMwLTEuOTYtMS4xMS02LjQtOC42Mi02LjQtNC4yNywwLTguMDIuODUtMTEuMTgsMi4zOS0uMjYuMDktLjY4LDAtLjY4LS41MXYtNy40M2MwLS40My4wOS0uNi41MS0uODUsMy42Ny0xLjcxLDguMzYtMi41NiwxMi45Ny0yLjU2LDExLjg3LDAsMTYuOTksNy40MywxNi45OSwxNi45djE3LjMzWk00NTguMTMsNjEuNDNjLTEuMjgtLjE3LTIuNzMtLjI2LTQuNy0uMjYtNi43NCwwLTkuNzMsMi4yMi05LjczLDUuODksMCwzLjE2LDIuMjIsNS44OSw4LjM3LDUuODksMi4yMiwwLDQuMTgtLjI2LDYuMDYtMS4wMnYtMTAuNVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01MDcuODEsNzkuMDFjMCwuNDMtLjA4LjYtLjQzLjY4LTIuNzMsMS4xMS02LjE1LDEuMzctOS40NywxLjM3LTEzLjgzLDAtMjIuMDItOS40Ny0yMi4wMi0yMS43N3M5LjM5LTIyLjAyLDIzLjQ3LTIyLjAyYzQuMjcsMCw2LjU3LjQzLDguMDIuOTQuMzQuMTcuNDMuNDMuNDMuOTRsLS4wOCw3LjZjMCwuNi0uMzQuNi0uNjguNTEtMS43OS0uNjgtNC4wMS0xLjExLTcuMzQtMS4xMS03Ljc3LDAtMTMuMjMsNC42MS0xMy4yMywxMi44LDAsOS4zLDYuNzQsMTIuODksMTMuMzIsMTIuODksMy4wNywwLDUuNzItLjI2LDcuNDMtLjg1LjQzLS4xNy42LjA5LjYuNDN2Ny42WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTUzNy41MSw3OC44NGMwLC41MS0uMDguODUtLjUxLDEuMDItMi4zLjg1LTQuNDQsMS4xOS03LjI2LDEuMTktNywwLTExLjE4LTMuNDEtMTEuMTgtMTEuODZ2LTIyLjQ1aC01LjM4Yy0uNDMtLjA5LS42LS4yNi0uNi0uNzd2LTcuMTdjMC0uNTEuMTctLjY4LjY4LS42OGg1LjM4Yy4wOS0yLjk5LjQzLTguMzYuODUtMTAuNS4wOS0uNDMuMjYtLjY4LjY4LS43N2w4LjYyLTEuMTljLjQzLS4wOS42LDAsLjYuNDMtLjI2LDIuODItLjQzLDcuODUtLjQzLDEyLjA0aDguMjhjLjQzLDAsLjYuMTcuNi42djcuNDNjMCwuNDMtLjE3LjYtLjYuNmgtOC4zN3YyMC4yM2MwLDMuNzYsMS4yLDUuNTUsNC44Nyw1LjU1LDEuMTEsMCwyLjA1LS4wOSwzLjI0LS4zNC4yNi0uMDkuNTEsMCwuNTEuNTF2Ni4xNVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NDEuODYsNzYuMzdjMC0yLjY1LDEuODgtNC42MSw0LjYxLTQuNjFzNC41MiwxLjk2LDQuNTIsNC42MWMwLDIuODItMS43MSw0LjY5LTQuNTIsNC42OXMtNC42MS0xLjc5LTQuNjEtNC42OVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NTUuOTUsNTkuODFjMC0xMi41NSw5LjMtMjEuOTQsMjMuMjItMjEuOTQsMi4zOSwwLDMuNzYuMjYsNS4zOC41MXYtMTguODZjMC0uNDMuMTctLjUxLjUxLS41MWg2LjE1Yy40MywwLC41MS4xNy41MS40M3Y1My43N2MwLDEuMiwwLDIuNjUuMTcsNC4xLDAsLjM0LS4wOS40My0uNDMuNi00Ljg3LDIuMy05LjY0LDMuMTYtMTQuNDIsMy4xNi0xMS44NywwLTIxLjA4LTcuMTctMjEuMDgtMjEuMjVaTTU4NC41NCw0NC44N2MtMS4zNy0uNi0zLjQyLS44NS01LjU1LS44NS05LjczLDAtMTUuNzksNi41Ny0xNS43OSwxNS40NSwwLDExLjEsNywxNS4zNiwxNC41MSwxNS4zNiwyLjIyLDAsNC44Ny0uMjYsNi44My0xLjExdi0yOC44NVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02MDIuOTgsMjYuMThjMC0yLjU2LDEuNzktNC4zNSw0LjM1LTQuMzUsMi43MywwLDQuMjcsMS44OCw0LjI3LDQuMzVzLTEuNzEsNC4zNS00LjM1LDQuMzUtNC4yNy0xLjc5LTQuMjctNC4zNVpNNjAzLjY2LDM5LjMyYzAtLjQzLjE3LS42LjYtLjZoNi4wNmMuMzQsMCwuNTEuMDkuNTEuNTF2NDAuMzdjMCwuNDMtLjA5LjYtLjYuNmgtNS44OWMtLjQzLDAtLjY4LS4xNy0uNjgtLjY4di00MC4yWiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTY0MS4xMyw3My4yMWMxMC41OC41MSwxNi41Niw0LjM1LDE2LjU2LDExLjg2LDAsOC41NC04LjExLDE1LjI4LTIwLjY2LDE1LjI4cy0xOC44Ni02LjY2LTE4Ljg2LTEyLjk3YzAtMi45LDIuNDgtNi43NCw4LjM3LTExLjY5LTEuMzctMS44OC0yLjA1LTQuMS0yLjA1LTYuNCwwLTEuODguNTEtMy43NiwxLjQ1LTUuMzgtMy41LTIuMy01LjgtNi4xNS01LjgtMTEuNTIsMC03Ljk0LDUuODktMTQuNTEsMTUuOTYtMTQuNTEsMi42NSwwLDQuODcuMzQsNi40LjY4Ljc3LjE3LDEuMjguMTcsMS43OS4xN2gxMi4wNGMuNDMsMCwuNTEuMTcuNTEuNTF2NC44N2MwLC4zNC0uMDguNTEtLjUxLjUxLTIuMjIsMC01LjgtLjE3LTcuODUtLjM0LDEuNTQsMS42MiwyLjk5LDQuMzUsMi45OSw4LjI4LDAsOS4zOS03LDE0LjA4LTE1LjQ1LDE0LjA4LTEuNjIsMC0zLjE2LS4xNy00LjY5LS41MS0uNDMsMS4wMi0uNiwyLjEzLS40MywzLjE2LjE3LDEuMjguNjgsMi40OCwxLjU0LDMuNWw4LjcxLjQzWk02MzAuNjMsNzguOTNjLTMuNSwyLjQ4LTUuNzIsNi4wNi01LjcyLDcuOTQsMCwzLjkzLDQuNjksNy45NCwxMi41NSw3Ljk0LDkuMzksMCwxMy41Ny00LjQ0LDEzLjU3LTguNzEsMC01LjA0LTUuMjktNi40LTExLjM1LTYuNzRsLTkuMDUtLjQzWk02MjcuMTMsNTIuM2MwLDUuMjEsMy4wNyw4Ljk2LDguNzksOC45Niw1LjM4LDAsOC43MS0zLjI0LDguNzEtOC43OSwwLTQuOTUtMi42NS05LjEzLTguNjItOS4xMy01LjM4LDAtOC44OCwzLjUtOC44OCw4Ljk2WiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTY2Mi45OCwyNi4xOGMwLTIuNTYsMS43OS00LjM1LDQuMzUtNC4zNSwyLjczLDAsNC4yNywxLjg4LDQuMjcsNC4zNXMtMS43MSw0LjM1LTQuMzUsNC4zNS00LjI3LTEuNzktNC4yNy00LjM1Wk02NjMuNjcsMzkuMzJjMC0uNDMuMTctLjYuNi0uNmg2LjA2Yy4zNCwwLC41MS4wOS41MS41MXY0MC4zN2MwLC40My0uMDkuNi0uNi42aC01Ljg5Yy0uNDMsMC0uNjgtLjE3LS42OC0uNjh2LTQwLjJaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzAxLjM5LDc5LjAxYzAsLjM0LS4wOC42OC0uNTEuODUtMS45Ni44NS00LjEsMS4xOS02LjQsMS4xOS02LjIzLDAtOS45OS0yLjk5LTkuOTktMTEuMTh2LTI1LjAxaC01LjhjLS41MS0uMDktLjYtLjI2LS42LS42OHYtNC44N2MwLS40My4xNy0uNi42LS42aDUuOGMuMDgtMy4xNi40My05LjA1Ljc3LTEwLjkzLjA4LS4zNC4yNi0uNTEuNi0uNmw1LjgtLjk0Yy4zNC0uMDguNTEsMCwuNTEuMzQtLjI2LDIuOTktLjUxLDcuOTQtLjUxLDEyLjEyaDkuMDVjLjM0LDAsLjUxLjE3LjUxLjZ2NS4wNGMwLC4zNC0uMTcuNTEtLjUxLjUxaC05LjA1djIzLjk5YzAsMy45MywxLjQ1LDYuMTUsNS4yMSw2LjE1LDEuMjgsMCwyLjU2LS4xNyw0LjAxLS42OC4yNi0uMDkuNTEtLjA5LjUxLjM0djQuMzVaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzM4LjE4LDcyLjk1YzAsMS40NSwwLDIuNzMuMTcsNC4xLDAsLjE3LDAsLjI2LS4xNy4zNC02LjE1LDIuOS0xMS4wMSwzLjY3LTE1Ljk2LDMuNjctOS4wNSwwLTE1Ljg4LTQuNDQtMTUuODgtMTMuNHM4LjQ1LTEzLjA2LDE5LjAzLTEzLjA2YzMuMTYsMCw0Ljk1LjA5LDUuODkuMTd2LTIuMDVjMC0yLjY1LTEuMjgtOC41NC05LjY1LTguNTQtNC4xLDAtNy44NS45NC0xMC44NCwyLjU2LS4yNi4wOC0uNiwwLS42LS40M3YtNS4yMWMwLS4zNC4xNy0uNTEuNDMtLjY4LDMuMzMtMS42Miw3LjYtMi41NiwxMi4xMi0yLjU2LDEwLjkzLDAsMTUuNDUsNy4xNywxNS40NSwxNi4wNXYxOS4wM1pNNzMxLjI3LDYwLjQxYy0xLjE5LS4xNy0zLjA3LS4zNC01LjYzLS4zNC04LjI4LDAtMTIuMjksMi44Mi0xMi4yOSw3LjYsMCwzLjg0LDIuNjUsNy42LDEwLjE2LDcuNiwyLjczLDAsNS4yOS0uNDMsNy43Ny0xLjQ1di0xMy40WiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTc1MC4xMywxOS41MmMwLS40My4xNy0uNTEuNi0uNTFoNS45OGMuNDMsMCwuNTEuMTcuNTEuNTF2NTEuNDdjMCwzLjMzLDEuMzcsNC4xLDMuNDEsNC4xLjYsMCwuOTQtLjA5LDEuNzEtLjI2LjI2LDAsLjM0LjE3LjM0LjUxdjQuNDRjMCwuNDMtLjA4LjUxLS40My42OC0uNzcuMzQtMi4xMy42LTMuOTMuNi00LjE4LDAtOC4xOS0xLjQ1LTguMTktOS40N1YxOS41MloiLz4KICA8L2c+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTMxLjU4LDY3LjY5bDMuNTctOS43N2MtLjc4LS42Ni0xLjQ0LTEuNDYtMS45My0yLjM3LS42MS0xLjE0LS45Ni0yLjQzLS45Ni0zLjgsMC0yLjIzLjktNC4yNCwyLjM2LTUuNywxLjQ2LTEuNDYsMy40OC0yLjM2LDUuNy0yLjM2czQuMjQuOSw1LjcsMi4zNmMxLjQ2LDEuNDYsMi4zNiwzLjQ4LDIuMzYsNS43LDAsMS4zNy0uMzUsMi42Ni0uOTYsMy44LS40OS45MS0xLjE0LDEuNzItMS45MywyLjM3bDMuNTcsOS43N2MuMjktLjI0LjU3LS40OC44NC0uNzMsMi42Mi0yLjQxLDQuMzgtNS40Miw0LjM4LTkuMjR2LTE5LjAzbC0xMy45Ni0zLjc0LTEzLjk2LDMuNzR2MTkuMDNjMCwzLjgyLDEuNzYsNi44Myw0LjM4LDkuMjQuMjcuMjUuNTUuNDkuODQuNzNNNDcuMiw2OS4wOWwtNC4zOS0xMi4wMS43NC0uNDljLjgtLjUzLDEuNDYtMS4yNSwxLjkxLTIuMS40NC0uODEuNjgtMS43NS42OC0yLjc0LDAtMS42LS42NS0zLjA2LTEuNy00LjExLTEuMDUtMS4wNS0yLjUtMS43LTQuMTEtMS43cy0zLjA2LjY1LTQuMTEsMS43Yy0xLjA1LDEuMDUtMS43LDIuNS0xLjcsNC4xMSwwLDEsLjI1LDEuOTMuNjgsMi43NC40NS44NCwxLjExLDEuNTYsMS45MSwyLjFsLjc0LjQ5LTQuMzksMTIuMDFjMi4xLDEuNDEsNC40OCwyLjU5LDYuODYsMy41OSwyLjM4LTEsNC43Ni0yLjE3LDYuODYtMy41OVpNNjIuMzYsMzEuMDljLS4xNS0uNC0uMjQtLjgzLS4yNS0xLjI4bC0xOC40My00Ljk0Yy0uNS44MS0xLjI4LDEuNDItMi4yMSwxLjd2Ni4zNWM0LjU3LDEuMjIsOS4xNSwyLjQ1LDEzLjcyLDMuNjhsNy4xOC01LjUxWk0xOC41NiwyOS44MWMtLjAxLjQ1LS4xLjg4LS4yNSwxLjI4bDcuMTgsNS41MWM0LjU3LTEuMjMsOS4xNS0yLjQ1LDEzLjcyLTMuNjh2LTYuMzVjLS45My0uMjgtMS43MS0uODktMi4yMS0xLjdsLTE4LjQzLDQuOTRaTTYyLjI3LDU2LjU5Yy4zOC0xLjI2LDEuMzctMi4yNSwyLjYzLTIuNjN2LTIwLjUxYy0uNDItLjEzLS44Mi0uMzItMS4xNy0uNThsLTcuMTcsNS41MXYxOC4yMWg1LjcxWk0xNS43Nyw1My45NmMxLjI2LjM4LDIuMjUsMS4zNywyLjYzLDIuNjNoNS43MXYtMTguMjFsLTcuMTgtNS41MWMtLjM1LjI1LS43NC40NS0xLjE3LjU4djIwLjUxWk0zNy4yMyw4Mi44MWMuNDktLjY0LDEuMTgtMS4xMiwxLjk3LTEuMzV2LTYuODJjLTMuNjEtMS41My03LjIxLTMuNDctOS45OC02LjAyLTIuOC0yLjU4LTQuNzYtNS43Ni01LjA3LTkuNzdoLTUuNzZjLS4zNSwxLjE3LTEuMjMsMi4xMS0yLjM2LDIuNTQuODUsNS41MSwzLjYsOS44Miw3LjQsMTMuMjUsMy44MiwzLjQ2LDguNzEsNi4wNywxMy43OSw4LjE2Wk00NC4yNSw4NC45MWMwLC4xLjAxLjIxLjAxLjMxLDAsMi4xNy0xLjc2LDMuOTItMy45MiwzLjkycy0zLjkyLTEuNzYtMy45Mi0zLjkyYzAtLjEsMC0uMjEuMDEtLjMxLTUuMy0yLjE4LTEwLjQzLTQuOTItMTQuNDktOC42LTQuMjEtMy44MS03LjI2LTguNi04LjE1LTE0Ljc2LTEuNzUtLjM5LTMuMDctMS45Ni0zLjA3LTMuODMsMC0xLjc4LDEuMTgtMy4yNywyLjgtMy43NnYtMjAuNTFjLTEuNjItLjQ4LTIuOC0xLjk4LTIuOC0zLjc2LDAtMi4xNywxLjc2LTMuOTIsMy45Mi0zLjkyLDEuNDEsMCwyLjY1Ljc0LDMuMzQsMS44Niw2LjE0LTEuNjUsMTIuMjktMy4yOSwxOC40My00Ljk0LjA2LTIuMTEsMS43OS0zLjgxLDMuOTItMy44MXMzLjg2LDEuNjksMy45MiwzLjgxYzYuMTQsMS42NCwxMi4yOSwzLjI5LDE4LjQzLDQuOTQuNjktMS4xMiwxLjkzLTEuODYsMy4zNC0xLjg2LDIuMTcsMCwzLjkyLDEuNzYsMy45MiwzLjkyLDAsMS43OC0xLjE4LDMuMjctMi44LDMuNzZ2MjAuNTFjMS42Mi40OCwyLjgsMS45OCwyLjgsMy43NiwwLDEuODctMS4zMSwzLjQ0LTMuMDcsMy44My0uODksNi4xNS0zLjk0LDEwLjk0LTguMTUsMTQuNzYtNC4wNiwzLjY3LTkuMTksNi40Mi0xNC40OSw4LjZaTTQzLjQzLDgyLjgxYzUuMDgtMi4wOSw5Ljk3LTQuNywxMy43OS04LjE2LDMuOC0zLjQ0LDYuNTUtNy43NCw3LjQtMTMuMjUtMS4xMy0uNDMtMi4wMS0xLjM3LTIuMzYtMi41NGgtNS43NmMtLjMxLDQtMi4yNyw3LjE5LTUuMDcsOS43Ny0yLjc3LDIuNTUtNi4zNyw0LjQ5LTkuOTgsNi4wMnY2LjgyYy43OS4yNCwxLjQ4LjcyLDEuOTcsMS4zNVoiLz4KPC9zdmc+" alt="SafeTransact.digital" class="brand-logo-img">
+      </a>
+      <p>Prestador Cualificado de Servicios de Confianza (QTSP) inscrito en la Lista de Confianza Europea. Preservación, validación y custodia de firmas electrónicas cualificadas con plena eficacia jurídica en toda la UE.</p>
+    </div>
+    <div class="footer-col" style="text-align:right;">
+      <h4>Contacto</h4>
+      <p style="font-size:0.85rem; opacity:0.6; line-height:1.7; margin-bottom:1rem;">
+        <a href="mailto:contact@safetransact.digital" style="color:rgba(245,242,235,0.6); text-decoration:none; transition:color 0.2s;">contact@safetransact.digital</a>
+      </p>
+      <p style="font-size:0.85rem; opacity:0.6; line-height:1.7;">
+        <strong style="font-weight:500; opacity:1; color:var(--gold-lt); font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase;">Dirección:</strong><br>
+        Calle Buenos Aires, 12.<br>
+        48001 Bilbao
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SafeTransact Digital · Todos los derechos reservados</span>
+    <div class="cert-badges">
+      <div class="cert-badge">QTSP · eIDAS</div>
+      <div class="cert-badge">ETSI 319 102</div>
+      <div class="cert-badge">ISO 27001</div>
+      <div class="cert-badge">EU Trust List</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Hamburger menu
+  const hamburger = document.getElementById('navHamburger');
+  const navMenu = document.getElementById('navLinks');
+  const overlay = document.getElementById('navOverlay');
+  const closeBtn = document.getElementById('navCloseBtn');
+
+  if (hamburger && navMenu && overlay) {
+    function toggleMenu() {
+      const isOpen = navMenu.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+    if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking a nav link
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (navMenu.classList.contains('open')) toggleMenu();
+      });
+    });
+  }
+
+  // Smooth active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 100;
+      if (window.scrollY >= top) current = section.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.opacity = a.getAttribute('href') === `#${current}` ? '1' : '0.7';
+    });
+  });
+</script>
+</body>
+</html>
