@@ -147,28 +147,28 @@
     }
 
     .policy-page {
-      padding: 7.5rem 3rem 2rem;
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 7.5rem 1rem 2rem;
       width: 100%;
     }
 
     .policy-shell {
       width: 100%;
-      max-width: 1200px;
+      max-width: 980px;
       margin: 0 auto;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      overflow: visible;
+      background: rgba(245, 242, 235, 0.92);
+      border: 1px solid var(--rule);
+      border-radius: 2rem;
+      box-shadow: 0 28px 80px rgba(10, 13, 20, 0.12);
+      overflow: hidden;
     }
 
     .policy-hero {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 0 0 1.8rem;
+      padding: 2rem 2rem 1.25rem;
       border-bottom: 1px solid var(--rule);
-      background: transparent;
-      color: var(--ink);
+      background: linear-gradient(135deg, rgba(10, 13, 20, 0.98), rgba(10, 13, 20, 0.88));
+      color: var(--paper);
     }
 
     h1 {
@@ -182,31 +182,33 @@
     .policy-summary {
       margin-top: 1rem;
       max-width: 60ch;
-      color: rgba(10, 13, 20, 0.72);
+      color: rgba(245, 242, 235, 0.78);
     }
 
     .policy-body {
-      display: block;
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+      gap: 0;
     }
 
     .policy-side {
-      display: none;
+      min-width: 0;
+      padding: 2rem;
+      border-right: 1px solid var(--rule);
+      background: rgba(255, 255, 255, 0.35);
     }
 
     .policy-side a {
+      display: block;
       color: var(--ink);
       text-decoration: none;
-      font-size: 0.84rem;
-      letter-spacing: 0.02em;
-      padding-bottom: 0.2rem;
-      border-bottom: 1px solid rgba(10, 13, 20, 0.14);
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--rule);
     }
 
     .policy-main {
       min-width: 0;
-      padding: 2rem 0 0;
-      max-width: 980px;
-      margin: 0 auto;
+      padding: 2rem;
     }
 
     .policy-card {
@@ -247,9 +249,7 @@
     }
 
     .policy-actions {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 1.5rem 0 2rem;
+      padding: 1.5rem 2rem 2rem;
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
@@ -587,11 +587,9 @@
         display: block;
         opacity: 1;
       }
-      .policy-page { padding: 8.5rem 1.5rem 1rem; }
-      .policy-main {
-        max-width: none;
-        padding: 1.5rem 0 0;
-      }
+      .policy-page { padding: 8.5rem 1rem 1rem; }
+      .policy-body { grid-template-columns: 1fr; }
+      .policy-side { border-right: none; border-bottom: 1px solid var(--rule); }
       footer { padding: 3rem 1.5rem 2rem; }
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
       .footer-col { text-align: left !important; }
@@ -639,6 +637,15 @@
     </header>
 
     <div class="policy-body">
+      <aside class="policy-side">
+        <a href="#que-son">1. Qué son las cookies</a>
+        <a href="#que-utilizamos">2. Qué utiliza esta web</a>
+        <a href="#almacenamiento-local">3. Almacenamiento local del aviso</a>
+        <a href="#terceros">4. Recursos de terceros</a>
+        <a href="#gestion">5. Gestión en el navegador</a>
+        <a href="#actualizaciones">6. Actualizaciones</a>
+      </aside>
+
       <main class="policy-main">
         <section class="policy-card" id="que-son">
           <h2>1. Qué son las cookies</h2>
