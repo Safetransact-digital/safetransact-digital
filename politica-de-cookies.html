@@ -147,11 +147,15 @@
     }
 
     .policy-page {
-      padding: 7.5rem 2rem 2rem;
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 7.5rem 1rem 2rem;
+      width: 100%;
     }
 
     .policy-shell {
-      width: min(980px, calc(100vw - 4rem));
+      width: 100%;
+      max-width: 980px;
       margin: 0 auto;
       background: rgba(245, 242, 235, 0.92);
       border: 1px solid var(--rule);
@@ -183,11 +187,12 @@
 
     .policy-body {
       display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
+      grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
       gap: 0;
     }
 
     .policy-side {
+      min-width: 0;
       padding: 2rem;
       border-right: 1px solid var(--rule);
       background: rgba(255, 255, 255, 0.35);
@@ -202,6 +207,7 @@
     }
 
     .policy-main {
+      min-width: 0;
       padding: 2rem;
     }
 
