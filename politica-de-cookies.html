@@ -147,28 +147,28 @@
     }
 
     .policy-page {
-      max-width: 1020px;
-      margin: 0 auto;
-      padding: 7.5rem 1rem 2rem;
+      padding: 7.5rem 3rem 2rem;
       width: 100%;
     }
 
     .policy-shell {
       width: 100%;
-      max-width: 980px;
+      max-width: 1200px;
       margin: 0 auto;
-      background: rgba(245, 242, 235, 0.92);
-      border: 1px solid var(--rule);
-      border-radius: 2rem;
-      box-shadow: 0 28px 80px rgba(10, 13, 20, 0.12);
-      overflow: hidden;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
     }
 
     .policy-hero {
-      padding: 2rem 2rem 1.25rem;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 0 1.8rem;
       border-bottom: 1px solid var(--rule);
-      background: linear-gradient(135deg, rgba(10, 13, 20, 0.98), rgba(10, 13, 20, 0.88));
-      color: var(--paper);
+      background: transparent;
+      color: var(--ink);
     }
 
     h1 {
@@ -182,7 +182,7 @@
     .policy-summary {
       margin-top: 1rem;
       max-width: 60ch;
-      color: rgba(245, 242, 235, 0.78);
+      color: rgba(10, 13, 20, 0.72);
     }
 
     .policy-body {
@@ -190,12 +190,7 @@
     }
 
     .policy-side {
-      padding: 1.1rem 2rem;
-      border-bottom: 1px solid var(--rule);
-      background: rgba(255, 255, 255, 0.35);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.25rem;
+      display: none;
     }
 
     .policy-side a {
@@ -209,8 +204,8 @@
 
     .policy-main {
       min-width: 0;
-      padding: 2rem;
-      max-width: 760px;
+      padding: 2rem 0 0;
+      max-width: 980px;
       margin: 0 auto;
     }
 
@@ -252,7 +247,9 @@
     }
 
     .policy-actions {
-      padding: 1.5rem 2rem 2rem;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1.5rem 0 2rem;
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
@@ -590,14 +587,10 @@
         display: block;
         opacity: 1;
       }
-      .policy-page { padding: 8.5rem 1rem 1rem; }
-      .policy-side {
-        padding: 1rem 1.25rem;
-        gap: 0.6rem 1rem;
-      }
+      .policy-page { padding: 8.5rem 1.5rem 1rem; }
       .policy-main {
         max-width: none;
-        padding: 1.5rem 1.25rem;
+        padding: 1.5rem 0 0;
       }
       footer { padding: 3rem 1.5rem 2rem; }
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
@@ -646,15 +639,6 @@
     </header>
 
     <div class="policy-body">
-      <aside class="policy-side">
-        <a href="#que-son">1. Qué son las cookies</a>
-        <a href="#que-utilizamos">2. Qué utiliza esta web</a>
-        <a href="#almacenamiento-local">3. Almacenamiento local del aviso</a>
-        <a href="#terceros">4. Recursos de terceros</a>
-        <a href="#gestion">5. Gestión en el navegador</a>
-        <a href="#actualizaciones">6. Actualizaciones</a>
-      </aside>
-
       <main class="policy-main">
         <section class="policy-card" id="que-son">
           <h2>1. Qué son las cookies</h2>
