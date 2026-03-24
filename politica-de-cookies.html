@@ -594,8 +594,17 @@
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
       .footer-col { text-align: left !important; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
-      .cookie-panel { width: min(100%, 420px); height: auto; }
-      .cookie-panel-actions { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .cookie-panel {
+        width: min(100%, 420px);
+        height: auto;
+      }
+
+      .cookie-panel-actions {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
