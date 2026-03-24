@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Cookies | SafeTransact Digital</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0a0d14;
+      --paper: #f5f2eb;
+      --gold: #b89a4e;
+      --teal: #1a6e6e;
+      --rule: rgba(10, 13, 20, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(184, 154, 78, 0.18), transparent 28%),
+        linear-gradient(180deg, #f7f4ee 0%, #f2ede2 100%);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.75;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: rgba(245, 242, 235, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .brand-logo-img {
+      display: block;
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    .nav-cta {
+      background: var(--ink);
+      color: var(--paper) !important;
+      opacity: 1 !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .nav-hamburger {
+      display: none;
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      z-index: 1001;
+      position: relative;
+    }
+
+    .nav-hamburger svg {
+      display: block;
+    }
+
+    .nav-close-item {
+      display: none;
+    }
+
+    .nav-close {
+      display: none;
+    }
+
+    .hamburger-line {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .nav-hamburger.active .hamburger-line-1 {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .nav-hamburger.active .hamburger-line-2 {
+      opacity: 0;
+    }
+
+    .nav-hamburger.active .hamburger-line-3 {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 13, 20, 0.4);
+      z-index: 1090;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+    }
+
+    .policy-page {
+      padding: 7.5rem 2rem 2rem;
+    }
+
+    .policy-shell {
+      max-width: 980px;
+      margin: 0 auto;
+      background: rgba(245, 242, 235, 0.92);
+      border: 1px solid var(--rule);
+      border-radius: 2rem;
+      box-shadow: 0 28px 80px rgba(10, 13, 20, 0.12);
+      overflow: hidden;
+    }
+
+    .policy-hero {
+      padding: 2rem 2rem 1.25rem;
+      border-bottom: 1px solid var(--rule);
+      background: linear-gradient(135deg, rgba(10, 13, 20, 0.98), rgba(10, 13, 20, 0.88));
+      color: var(--paper);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      line-height: 0.98;
+      font-weight: 600;
+      max-width: 11ch;
+    }
+
+    .policy-summary {
+      margin-top: 1rem;
+      max-width: 60ch;
+      color: rgba(245, 242, 235, 0.78);
+    }
+
+    .policy-body {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .policy-side {
+      padding: 2rem;
+      border-right: 1px solid var(--rule);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .policy-side a {
+      display: block;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .policy-main {
+      padding: 2rem;
+    }
+
+    .policy-card {
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .policy-card:first-child {
+      padding-top: 0;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      line-height: 1.1;
+      margin-bottom: 0.85rem;
+    }
+
+    p + p,
+    ul {
+      margin-top: 0.9rem;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    li + li {
+      margin-top: 0.55rem;
+    }
+
+    .policy-note {
+      margin-top: 1rem;
+      padding: 1rem 1.1rem;
+      border-radius: 1rem;
+      background: rgba(26, 110, 110, 0.08);
+      border: 1px solid rgba(26, 110, 110, 0.15);
+    }
+
+    .policy-actions {
+      padding: 1.5rem 2rem 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .policy-actions a {
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.9rem 1.2rem;
+      font-family: 'DM Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+    }
+
+    .policy-actions .primary {
+      background: var(--ink);
+      color: var(--paper);
+      border: 1px solid var(--ink);
+    }
+
+    .policy-actions .secondary {
+      color: var(--ink);
+      border: 1px solid var(--rule);
+    }
+
+    footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 4rem 3rem 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.83rem;
+      opacity: 0.6;
+      line-height: 1.7;
+      margin-top: 1rem;
+      max-width: 28ch;
+    }
+
+    .footer-col h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d4b87a;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.78rem;
+      opacity: 0.45;
+    }
+
+    .footer-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-meta-links a {
+      color: rgba(245,242,235,0.72);
+      text-decoration: none;
+    }
+
+    .cert-badges {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cert-badge {
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 0.3rem 0.7rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: #d4b87a;
+    }
+
+    @media (max-width: 860px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-hamburger { display: block; }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 380px;
+        height: 100dvh;
+        min-height: 100vh;
+        max-width: 88vw;
+        background: var(--paper);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 6rem 2.5rem 2.5rem;
+        z-index: 1200;
+        transform: translateX(100%);
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -4px 0 24px rgba(10, 13, 20, 0.12);
+        overflow-y: auto;
+        margin: 0;
+      }
+      .nav-links.open {
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .nav-close-item {
+        display: block;
+        position: absolute;
+        top: 1.25rem;
+        left: 1.25rem;
+        width: auto;
+        border-bottom: none;
+      }
+      .nav-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border: none;
+        border-radius: 10px;
+        background: var(--paper);
+        color: var(--ink);
+        cursor: pointer;
+      }
+      .nav-close svg {
+        display: block;
+      }
+      .nav-links li {
+        width: 100%;
+      }
+      .nav-links li:not(.nav-close-item) {
+        border-bottom: 1px solid var(--rule);
+      }
+      .nav-links li:last-child {
+        border-bottom: none;
+        margin-top: 1rem;
+      }
+      .nav-links a {
+        display: block;
+        padding: 1.25rem 0;
+        font-size: 1.15rem;
+        opacity: 1;
+      }
+      .nav-links .nav-cta {
+        display: inline-flex;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+      }
+      .nav-overlay.active {
+        display: block;
+        opacity: 1;
+      }
+      .policy-page { padding: 8.5rem 1rem 1rem; }
+      .policy-body { grid-template-columns: 1fr; }
+      .policy-side { border-right: none; border-bottom: 1px solid var(--rule); }
+      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-col { text-align: left !important; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/index.html" class="nav-logo">
+      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDc4MS41MyAxMDcuNjYiPgogIDwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAzMC4yLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiAyLjEuMSBCdWlsZCAxKSAgLS0+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5zdDAgewogICAgICAgIGZpbGw6ICMxNjE2MTU7CiAgICAgIH0KCiAgICAgIC5zdDEgewogICAgICAgIGZpbGw6ICNhODg4M2E7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxnPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTkyLjIxLDc3Ljk5Yy0uNDMtLjI2LS42LS42LS42LTEuMjh2LTguODhjMC0uMzQuMzQtLjUxLjY4LS4zNCw0LjYxLDIuOTksMTAuMjQsNC40NCwxNS4xOSw0LjQ0LDcsMCw5Ljk5LTIuNzMsOS45OS02LjQsMC0zLjE2LTIuMDUtNS41NS04LjU0LTguMjhsLTQuMS0xLjcxYy0xMC41LTQuNDQtMTMuMjMtOS43My0xMy4yMy0xNi4xMywwLTkuMTMsNi45MS0xNi4xMywxOS44LTE2LjEzLDUuMzgsMCwxMC4yNC43NywxMy4wNiwyLjIyLjQzLjI2LjUxLjUxLjUxLDEuMTF2OC4yOGMwLC4zNC0uMjYuNjgtLjc3LjM0LTMuMjQtMS44OC03Ljk0LTIuODItMTIuODktMi44Mi03LjM0LDAtOS42NSwzLjA3LTkuNjUsNi4wNnMxLjk2LDUuMjEsOC43MSw4LjAybDMuMjQsMS4zN2MxMS4xLDQuNjEsMTQuMjUsOS45OSwxNC4yNSwxNi43MywwLDkuOTktNy44NSwxNi40Ny0yMC43NCwxNi40Ny02LjIzLDAtMTEuNDQtMS4xOS0xNC45NC0zLjA3WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTE2OC45NCw3MS41YzAsMS44OCwwLDMuNTguMTcsNS4zOCwwLC4xNywwLC4yNi0uMTcuMzQtNywyLjk5LTExLjk1LDMuODQtMTcuNzUsMy44NC05LjMsMC0xNi43My00LjM1LTE2LjczLTE0LDAtOS4wNSw4LjExLTEzLjU3LDE5LjIxLTEzLjU3LDIuNTYsMCw0LjUyLjA4LDUuMjkuMTd2LTEuMDJjMC0xLjk2LTEuMTEtNi40LTguNjItNi40LTQuMjcsMC04LjAyLjg1LTExLjE4LDIuMzktLjI2LjA5LS42OCwwLS42OC0uNTF2LTcuNDNjMC0uNDMuMDktLjYuNTEtLjg1LDMuNjctMS43MSw4LjM2LTIuNTYsMTIuOTctMi41NiwxMS44NiwwLDE2Ljk5LDcuNDMsMTYuOTksMTYuOXYxNy4zM1pNMTU4Ljk1LDYxLjQzYy0xLjI4LS4xNy0yLjczLS4yNi00LjY5LS4yNi02Ljc0LDAtOS43MywyLjIyLTkuNzMsNS44OSwwLDMuMTYsMi4yMiw1Ljg5LDguMzcsNS44OSwyLjIyLDAsNC4xOC0uMjYsNi4wNi0xLjAydi0xMC41WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTE3NS4zNCw0Ni43NWMtLjQzLDAtLjUxLS4xNy0uNTEtLjZ2LTcuNTFjMC0uNDMuMTctLjUxLjUxLS41MWg1LjIxdi0xLjk2YzAtNC4yNy42OC03LjQzLDEuODgtOS45OSwyLjIyLTQuNjEsNi4xNS03LjUxLDEyLjYzLTcuNTEsMS43MSwwLDMuMjQuMDksNC4xOC41MS41MS4xNy41MS40My41MS44NXY3LjM0YzAsLjM0LS4xNy42LS42LjQzLS44NS0uMTctMS44OC0uMjYtMi42NS0uMjYtMy41LDAtNS42MywxLjg4LTUuNjMsNy43N3YyLjgyaDcuNTFjLjYsMCwuNjguMTcuNjguNTF2Ny41MWMwLC40My0uMTcuNTEtLjY4LjZoLTcuNTF2MzIuNzhjMCwuNDMtLjA5LjY4LS43Ny42OGgtOC44OGMtLjUxLDAtLjY4LS4yNi0uNjgtLjY4di0zMi43OGgtNS4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yMTIuNjQsNjEuNTFjLjI2LDUuOTgsNC4xOCwxMC43NSwxMi44OSwxMC43NSwzLjg0LDAsNy4zNC0uNjgsMTAuNTgtMi4wNS4yNi0uMTcuNTEtLjA5LjUxLjM0djcuMDhjMCwuNTEtLjE3Ljc3LS41MS45NC0zLjI0LDEuNTQtNywyLjQ4LTEyLjgsMi40OC0xNS41NCwwLTIxLjA4LTEwLjkzLTIxLjA4LTIxLjQyLDAtMTEuODYsNy4xNy0yMi4zNiwyMC4wNi0yMi4zNnMxNy41LDkuOSwxNy41LDE4LjAxYzAsMi4zOS0uMDgsNC4zNS0uMzQsNS4yOS0uMDkuMzQtLjI2LjUxLS42OC42LTEuMi4yNi00LjYxLjM0LTguNzkuMzRoLTE3LjMzWk0yMjUuMzYsNTQuMTdjMy4yNCwwLDQuMzUsMCw0LjY5LS4wOXYtLjY4YzAtMi40OC0xLjcxLTcuOTQtOC4xOS03Ljk0LTUuODksMC04LjU0LDQuNTItOS4yMiw4LjcxaDEyLjcyWiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTI1NC4wNCwzMy40M2gtMTcuMzNjLS40MywwLS42LS4yNi0uNTEtLjY4bDEuMTEtNy45NGMuMDktLjUxLjI2LS42OC43Ny0uNjhoNDIuNDJjLjUxLDAsLjc3LjE3Ljg1Ljc3bC43Nyw3Ljc3Yy4wOS41MS0uMTcuNzctLjYuNzdoLTE3LjI0djQ2LjAxYzAsLjUxLS4yNi43Ny0uNjguNzdoLTguNzljLS42LjA5LS43Ny0uMTctLjc3LS43N3YtNDYuMDFaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjkwLjIzLDM4LjEzYy41MSwwLC43Ny4xNy45NC42OC40MywxLjExLjc3LDMuMjQuODUsNS4xMiwyLjktMy41OCw3Ljc3LTYuNjYsMTMuNjYtNi42Ni41MSwwLC42OC4wOS42OC42djkuMDVjMCwuNDMtLjE3LjYtLjc3LjYtNi4wNi0uMTctMTEuMSwxLjk2LTEzLjA2LDQuNTJ2MjcuNDljMCwuNTEtLjI2LjY4LS43Ny42OGgtOC44OGMtLjYsMC0uNzctLjI2LS43Ny0uNjh2LTI5LjQ1YzAtMy42Ny0uMDktOC42Mi0uNDMtMTEuNDQsMC0uNDMuMDktLjUxLjUxLS41MWg4LjAyWiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTM0My4wNyw3MS41YzAsMS44OCwwLDMuNTguMTcsNS4zOCwwLC4xNywwLC4yNi0uMTcuMzQtNywyLjk5LTExLjk1LDMuODQtMTcuNzUsMy44NC05LjMsMC0xNi43My00LjM1LTE2LjczLTE0LDAtOS4wNSw4LjExLTEzLjU3LDE5LjIxLTEzLjU3LDIuNTYsMCw0LjUyLjA4LDUuMjkuMTd2LTEuMDJjMC0xLjk2LTEuMTEtNi40LTguNjItNi40LTQuMjcsMC04LjAyLjg1LTExLjE4LDIuMzktLjI2LjA5LS42OCwwLS42OC0uNTF2LTcuNDNjMC0uNDMuMDktLjYuNTEtLjg1LDMuNjctMS43MSw4LjM2LTIuNTYsMTIuOTctMi41NiwxMS44NiwwLDE2Ljk5LDcuNDMsMTYuOTksMTYuOXYxNy4zM1pNMzMzLjA4LDYxLjQzYy0xLjI4LS4xNy0yLjczLS4yNi00LjY5LS4yNi02Ljc0LDAtOS43MywyLjIyLTkuNzMsNS44OSwwLDMuMTYsMi4yMiw1Ljg5LDguMzcsNS44OSwyLjIyLDAsNC4xOC0uMjYsNi4wNi0xLjAydi0xMC41WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTM1My44Miw0Ny45NGMwLTIuOS0uMTctNy41MS0uMzQtOS4yMiwwLS40My4wOS0uNi42LS42aDcuNzdjLjYsMCwuODUuMTcsMS4wMi42LjI2Ljc3LjQzLDEuODguNiwzLjI0LDMuNjctMy4wNyw3Ljc3LTQuNjksMTIuMzgtNC42OSw2LjQsMCwxNC4yNSwzLjI0LDE0LjI1LDE2Ljl2MjUuMjdjMCwuNi0uMjYuNzctLjY4Ljc3aC04Ljg4Yy0uNTEsMC0uNzctLjI2LS43Ny0uNzd2LTI0LjMzYzAtNS42My0yLjM5LTguODgtNy4zNC04Ljg4LTMuNDEsMC02LjIzLDEuMjgtOC4yOCwzLjV2MjkuNzljMCwuNDMtLjI2LjY4LS42OC42OGgtOC45NmMtLjUxLDAtLjY4LS4yNi0uNjgtLjY4di0zMS41OFoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik00MTQuMTcsNDUuNTVjLTQuNTIsMC02LjA2LDEuODgtNi4wNiwzLjY3czEuMjgsMy4xNiw2Ljc0LDUuMjljOS43MywzLjU5LDEzLjA2LDcuNDMsMTMuMDYsMTMuNDksMCw4LjAyLTYuMzIsMTMuMDYtMTYuODIsMTMuMDYtNS4wNCwwLTkuNDctLjk0LTEyLjA0LTIuMzktLjQzLS4yNi0uNi0uNDMtLjYtLjk0di04LjExYzAtLjQzLjM0LS42LjY4LS40MywzLjY3LDIuMzksOC4zNywzLjQxLDEyLjIxLDMuNDEsNC40NCwwLDYuNTctMS41NCw2LjU3LTMuNzZzLTEuNjItMy41LTYuOTEtNS42M2MtOS4zLTMuNDEtMTIuNjMtNy4yNi0xMi42My0xMy40LDAtNi40OSw1LjI5LTEyLjU1LDE1Ljk2LTEyLjU1LDQuOTUsMCw4LjcxLjY4LDEwLjc1LDEuNzEuNDMuMjYuNTEuNi41MSwxLjAydjcuNTFjMCwuNDMtLjI2LjY4LS43Ny41MS0yLjY1LTEuNDUtNi45MS0yLjQ4LTEwLjY3LTIuNDhaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNDY4LjExLDcxLjVjMCwxLjg4LDAsMy41OC4xNyw1LjM4LDAsLjE3LDAsLjI2LS4xNy4zNC03LDIuOTktMTEuOTUsMy44NC0xNy43NSwzLjg0LTkuMywwLTE2LjczLTQuMzUtMTYuNzMtMTQsMC05LjA1LDguMTEtMTMuNTcsMTkuMjEtMTMuNTcsMi41NiwwLDQuNTIuMDgsNS4yOS4xN3YtMS4wMmMwLTEuOTYtMS4xMS02LjQtOC42Mi02LjQtNC4yNywwLTguMDIuODUtMTEuMTgsMi4zOS0uMjYuMDktLjY4LDAtLjY4LS41MXYtNy40M2MwLS40My4wOS0uNi41MS0uODUsMy42Ny0xLjcxLDguMzYtMi41NiwxMi45Ny0yLjU2LDExLjg3LDAsMTYuOTksNy40MywxNi45OSwxNi45djE3LjMzWk00NTguMTMsNjEuNDNjLTEuMjgtLjE3LTIuNzMtLjI2LTQuNy0uMjYtNi43NCwwLTkuNzMsMi4yMi05LjczLDUuODksMCwzLjE2LDIuMjIsNS44OSw4LjM3LDUuODksMi4yMiwwLDQuMTgtLjI2LDYuMDYtMS4wMnYtMTAuNVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01MDcuODEsNzkuMDFjMCwuNDMtLjA4LjYtLjQzLjY4LTIuNzMsMS4xMS02LjE1LDEuMzctOS40NywxLjM3LTEzLjgzLDAtMjIuMDItOS40Ny0yMi4wMi0yMS43N3M5LjM5LTIyLjAyLDIzLjQ3LTIyLjAyYzQuMjcsMCw2LjU3LjQzLDguMDIuOTQuMzQuMTcuNDMuNDMuNDMuOTRsLS4wOCw3LjZjMCwuNi0uMzQuNi0uNjguNTEtMS43OS0uNjgtNC4wMS0xLjExLTcuMzQtMS4xMS03Ljc3LDAtMTMuMjMsNC42MS0xMy4yMywxMi44LDAsOS4zLDYuNzQsMTIuODksMTMuMzIsMTIuODksMy4wNywwLDUuNzItLjI2LDcuNDMtLjg1LjQzLS4xNy42LjA5LjYuNDN2Ny42WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTUzNy41MSw3OC44NGMwLC41MS0uMDguODUtLjUxLDEuMDItMi4zLjg1LTQuNDQsMS4xOS03LjI2LDEuMTktNywwLTExLjE4LTMuNDEtMTEuMTgtMTEuODZ2LTIyLjQ1aC01LjM4Yy0uNDMtLjA5LS42LS4yNi0uNi0uNzd2LTcuMTdjMC0uNTEuMTctLjY4LjY4LS42OGg1LjM4Yy4wOS0yLjk5LjQzLTguMzYuODUtMTAuNS4wOS0uNDMuMjYtLjY4LjY4LS43N2w4LjYyLTEuMTljLjQzLS4wOS42LDAsLjYuNDMtLjI2LDIuODItLjQzLDcuODUtLjQzLDEyLjA0aDguMjhjLjQzLDAsLjYuMTcuNi42djcuNDNjMCwuNDMtLjE3LjYtLjYuNmgtOC4zN3YyMC4yM2MwLDMuNzYsMS4yLDUuNTUsNC44Nyw1LjU1LDEuMTEsMCwyLjA1LS4wOSwzLjI0LS4zNC4yNi0uMDkuNTEsMCwuNTEuNTF2Ni4xNVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NDEuODYsNzYuMzdjMC0yLjY1LDEuODgtNC42MSw0LjYxLTQuNjFzNC41MiwxLjk2LDQuNTIsNC42MWMwLDIuODItMS43MSw0LjY5LTQuNTIsNC42OXMtNC42MS0xLjc5LTQuNjEtNC42OVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NTUuOTUsNTkuODFjMC0xMi41NSw5LjMtMjEuOTQsMjMuMjItMjEuOTQsMi4zOSwwLDMuNzYuMjYsNS4zOC41MXYtMTguODZjMC0uNDMuMTctLjUxLjUxLS41MWg2LjE1Yy40MywwLC41MS4xNy41MS40M3Y1My43N2MwLDEuMiwwLDIuNjUuMTcsNC4xLDAsLjM0LS4wOS40My0uNDMuNi00Ljg3LDIuMy05LjY0LDMuMTYtMTQuNDIsMy4xNi0xMS44NywwLTIxLjA4LTcuMTctMjEuMDgtMjEuMjVaTTU4NC41NCw0NC44N2MtMS4zNy0uNi0zLjQyLS44NS01LjU1LS44NS05LjczLDAtMTUuNzksNi41Ny0xNS43OSwxNS40NSwwLDExLjEsNywxNS4zNiwxNC41MSwxNS4zNiwyLjIyLDAsNC44Ny0uMjYsNi44My0xLjExdi0yOC44NVoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02MDIuOTgsMjYuMThjMC0yLjU2LDEuNzktNC4zNSw0LjM1LTQuMzUsMi43MywwLDQuMjcsMS44OCw0LjI3LDQuMzVzLTEuNzEsNC4zNS00LjM1LDQuMzUtNC4yNy0xLjc5LTQuMjctNC4zNVpNNjAzLjY2LDM5LjMyYzAtLjQzLjE3LS42LjYtLjZoNi4wNmMuMzQsMCwuNTEuMDkuNTEuNTF2NDAuMzdjMCwuNDMtLjA5LjYtLjYuNmgtNS44OWMtLjQzLDAtLjY4LS4xNy0uNjgtLjY4di00MC4yWiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTY0MS4xMyw3My4yMWMxMC41OC41MSwxNi41Niw0LjM1LDE2LjU2LDExLjg2LDAsOC41NC04LjExLDE1LjI4LTIwLjY2LDE1LjI4cy0xOC44Ni02LjY2LTE4Ljg2LTEyLjk3YzAtMi45LDIuNDgtNi43NCw4LjM3LTExLjY5LTEuMzctMS44OC0yLjA1LTQuMS0yLjA1LTYuNCwwLTEuODguNTEtMy43NiwxLjQ1LTUuMzgtMy41LTIuMy01LjgtNi4xNS01LjgtMTEuNTIsMC03Ljk0LDUuODktMTQuNTEsMTUuOTYtMTQuNTEsMi42NSwwLDQuODcuMzQsNi40LjY4Ljc3LjE3LDEuMjguMTcsMS43OS4xN2gxMi4wNGMuNDMsMCwuNTEuMTcuNTEuNTF2NC44N2MwLC4zNC0uMDguNTEtLjUxLjUxLTIuMjIsMC01LjgtLjE3LTcuODUtLjM0LDEuNTQsMS42MiwyLjk5LDQuMzUsMi45OSw4LjI4LDAsOS4zOS03LDE0LjA4LTE1LjQ1LDE0LjA4LTEuNjIsMC0zLjE2LS4xNy00LjY5LS41MS0uNDMsMS4wMi0uNiwyLjEzLS40MywzLjE2LjE3LDEuMjguNjgsMi40OCwxLjU0LDMuNWw4LjcxLjQzWk02MzAuNjMsNzguOTNjLTMuNSwyLjQ4LTUuNzIsNi4wNi01LjcyLDcuOTQsMCwzLjkzLDQuNjksNy45NCwxMi41NSw3Ljk0LDkuMzksMCwxMy41Ny00LjQ0LDEzLjU3LTguNzEsMC01LjA0LTUuMjktNi40LTExLjM1LTYuNzRsLTkuMDUtLjQzWk02MjcuMTMsNTIuM2MwLDUuMjEsMy4wNyw4Ljk2LDguNzksOC45Niw1LjM4LDAsOC43MS0zLjI0LDguNzEtOC43OSwwLTQuOTUtMi42NS05LjEzLTguNjItOS4xMy01LjM4LDAtOC44OCwzLjUtOC44OCw4Ljk2WiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTY2Mi45OCwyNi4xOGMwLTIuNTYsMS43OS00LjM1LDQuMzUtNC4zNSwyLjczLDAsNC4yNywxLjg4LDQuMjcsNC4zNXMtMS43MSw0LjM1LTQuMzUsNC4zNS00LjI3LTEuNzktNC4yNy00LjM1Wk02NjMuNjcsMzkuMzJjMC0uNDMuMTctLjYuNi0uNmg2LjA2Yy4zNCwwLC41MS4wOS41MS41MXY0MC4zN2MwLC40My0uMDkuNi0uNi42aC01Ljg5Yy0uNDMsMC0uNjgtLjE3LS42OC0uNjh2LTQwLjJaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzAxLjM5LDc5LjAxYzAsLjM0LS4wOC42OC0uNTEuODUtMS45Ni44NS00LjEsMS4xOS02LjQsMS4xOS02LjIzLDAtOS45OS0yLjk5LTkuOTktMTEuMTh2LTI1LjAxaC01LjhjLS41MS0uMDktLjYtLjI2LS42LS42OHYtNC44N2MwLS40My4xNy0uNi42LS42aDUuOGMuMDgtMy4xNi40My05LjA1Ljc3LTEwLjkzLjA4LS4zNC4yNi0uNTEuNi0uNmw1LjgtLjk0Yy4zNC0uMDguNTEsMCwuNTEuMzQtLjI2LDIuOTktLjUxLDcuOTQtLjUxLDEyLjEyaDkuMDVjLjM0LDAsLjUxLjE3LjUxLjZ2NS4wNGMwLC4zNC0uMTcuNTEtLjUxLjUxaC05LjA1djIzLjk5YzAsMy45MywxLjQ1LDYuMTUsNS4yMSw2LjE1LDEuMjgsMCwyLjU2LS4xNyw0LjAxLS42OC4yNi0uMDkuNTEtLjA5LjUxLjM0djQuMzVaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzM4LjE4LDcyLjk1YzAsMS40NSwwLDIuNzMuMTcsNC4xLDAsLjE3LDAsLjI2LS4xNy4zNC02LjE1LDIuOS0xMS4wMSwzLjY3LTE1Ljk2LDMuNjctOS4wNSwwLTE1Ljg4LTQuNDQtMTUuODgtMTMuNHM4LjQ1LTEzLjA2LDE5LjAzLTEzLjA2YzMuMTYsMCw0Ljk1LjA5LDUuODkuMTd2LTIuMDVjMC0yLjY1LTEuMjgtOC41NC05LjY1LTguNTQtNC4xLDAtNy44NS45NC0xMC44NCwyLjU2LS4yNi4wOC0uNiwwLS42LS40M3YtNS4yMWMwLS4zNC4xNy0uNTEuNDMtLjY4LDMuMzMtMS42Miw3LjYtMi41NiwxMi4xMi0yLjU2LDEwLjkzLDAsMTUuNDUsNy4xNywxNS40NSwxNi4wNXYxOS4wM1pNNzMxLjI3LDYwLjQxYy0xLjE5LS4xNy0zLjA3LS4zNC01LjYzLS4zNC04LjI4LDAtMTIuMjksMi44Mi0xMi4yOSw3LjYsMCwzLjg0LDIuNjUsNy42LDEwLjE2LDcuNiwyLjczLDAsNS4yOS0uNDMsNy43Ny0xLjQ1di0xMy40WiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTc1MC4xMywxOS41MmMwLS40My4xNy0uNTEuNi0uNTFoNS45OGMuNDMsMCwuNTEuMTcuNTEuNTF2NTEuNDdjMCwzLjMzLDEuMzcsNC4xLDMuNDEsNC4xLjYsMCwuOTQtLjA5LDEuNzEtLjI2LjI2LDAsLjM0LjE3LjM0LjUxdjQuNDRjMCwuNDMtLjA4LjUxLS40My42OC0uNzcuMzQtMi4xMy42LTMuOTMuNi00LjE4LDAtOC4xOS0xLjQ1LTguMTktOS40N1YxOS41MloiLz4KICA8L2c+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTMxLjU4LDY3LjY5bDMuNTctOS43N2MtLjc4LS42Ni0xLjQ0LTEuNDYtMS45My0yLjM3LS42MS0xLjE0LS45Ni0yLjQzLS45Ni0zLjgsMC0yLjIzLjktNC4yNCwyLjM2LTUuNywxLjQ2LTEuNDYsMy40OC0yLjM2LDUuNy0yLjM2czQuMjQuOSw1LjcsMi4zNmMxLjQ2LDEuNDYsMi4zNiwzLjQ4LDIuMzYsNS43LDAsMS4zNy0uMzUsMi42Ni0uOTYsMy44LS40OS45MS0xLjE0LDEuNzItMS45MywyLjM3bDMuNTcsOS43N2MuMjktLjI0LjU3LS40OC44NC0uNzMsMi42Mi0yLjQxLDQuMzgtNS40Miw0LjM4LTkuMjR2LTE5LjAzbC0xMy45Ni0zLjc0LTEzLjk2LDMuNzR2MTkuMDNjMCwzLjgyLDEuNzYsNi44Myw0LjM4LDkuMjQuMjcuMjUuNTUuNDkuODQuNzNNNDcuMiw2OS4wOWwtNC4zOS0xMi4wMS43NC0uNDljLjgtLjUzLDEuNDYtMS4yNSwxLjkxLTIuMS40NC0uODEuNjgtMS43NS42OC0yLjc0LDAtMS42LS42NS0zLjA2LTEuNy00LjExLTEuMDUtMS4wNS0yLjUtMS43LTQuMTEtMS43cy0zLjA2LjY1LTQuMTEsMS43Yy0xLjA1LDEuMDUtMS43LDIuNS0xLjcsNC4xMSwwLDEsLjI1LDEuOTMuNjgsMi43NC40NS44NCwxLjExLDEuNTYsMS45MSwyLjFsLjc0LjQ5LTQuMzksMTIuMDFjMi4xLDEuNDEsNC40OCwyLjU5LDYuODYsMy41OSwyLjM4LTEsNC43Ni0yLjE3LDYuODYtMy41OVpNNjIuMzYsMzEuMDljLS4xNS0uNC0uMjQtLjgzLS4yNS0xLjI4bC0xOC40My00Ljk0Yy0uNS44MS0xLjI4LDEuNDItMi4yMSwxLjd2Ni4zNWM0LjU3LDEuMjIsOS4xNSwyLjQ1LDEzLjcyLDMuNjhsNy4xOC01LjUxWk0xOC41NiwyOS44MWMtLjAxLjQ1LS4xLjg4LS4yNSwxLjI4bDcuMTgsNS41MWM0LjU3LTEuMjMsOS4xNS0yLjQ1LDEzLjcyLTMuNjh2LTYuMzVjLS45My0uMjgtMS43MS0uODktMi4yMS0xLjdsLTE4LjQzLDQuOTRaTTYyLjI3LDU2LjU5Yy4zOC0xLjI2LDEuMzctMi4yNSwyLjYzLTIuNjN2LTIwLjUxYy0uNDItLjEzLS44Mi0uMzItMS4xNy0uNThsLTcuMTcsNS41MXYxOC4yMWg1LjcxWk0xNS43Nyw1My45NmMxLjI2LjM4LDIuMjUsMS4zNywyLjYzLDIuNjNoNS43MXYtMTguMjFsLTcuMTgtNS41MWMtLjM1LjI1LS43NC40NS0xLjE3LjU4djIwLjUxWk0zNy4yMyw4Mi44MWMuNDktLjY0LDEuMTgtMS4xMiwxLjk3LTEuMzV2LTYuODJjLTMuNjEtMS41My03LjIxLTMuNDctOS45OC02LjAyLTIuOC0yLjU4LTQuNzYtNS43Ni01LjA3LTkuNzdoLTUuNzZjLS4zNSwxLjE3LTEuMjMsMi4xMS0yLjM2LDIuNTQuODUsNS41MSwzLjYsOS44Miw3LjQsMTMuMjUsMy44MiwzLjQ2LDguNzEsNi4wNywxMy43OSw4LjE2Wk00NC4yNSw4NC45MWMwLC4xLjAxLjIxLjAxLjMxLDAsMi4xNy0xLjc2LDMuOTItMy45MiwzLjkycy0zLjkyLTEuNzYtMy45Mi0zLjkyYzAtLjEsMC0uMjEuMDEtLjMxLTUuMy0yLjE4LTEwLjQzLTQuOTItMTQuNDktOC42LTQuMjEtMy44MS03LjI2LTguNi04LjE1LTE0Ljc2LTEuNzUtLjM5LTMuMDctMS45Ni0zLjA3LTMuODMsMC0xLjc4LDEuMTgtMy4yNywyLjgtMy43NnYtMjAuNTFjLTEuNjItLjQ4LTIuOC0xLjk4LTIuOC0zLjc2LDAtMi4xNywxLjc2LTMuOTIsMy45Mi0zLjkyLDEuNDEsMCwyLjY1Ljc0LDMuMzQsMS44Niw2LjE0LTEuNjUsMTIuMjktMy4yOSwxOC40My00Ljk0LjA2LTIuMTEsMS43OS0zLjgxLDMuOTItMy44MXMzLjg2LDEuNjksMy45MiwzLjgxYzYuMTQsMS42NCwxMi4yOSwzLjI5LDE4LjQzLDQuOTQuNjktMS4xMiwxLjkzLTEuODYsMy4zNC0xLjg2LDIuMTcsMCwzLjkyLDEuNzYsMy45MiwzLjkyLDAsMS43OC0xLjE4LDMuMjctMi44LDMuNzZ2MjAuNTFjMS42Mi40OCwyLjgsMS45OCwyLjgsMy43NiwwLDEuODctMS4zMSwzLjQ0LTMuMDcsMy44My0uODksNi4xNS0zLjk0LDEwLjk0LTguMTUsMTQuNzYtNC4wNiwzLjY3LTkuMTksNi40Mi0xNC40OSw4LjZaTTQzLjQzLDgyLjgxYzUuMDgtMi4wOSw5Ljk3LTQuNywxMy43OS04LjE2LDMuOC0zLjQ0LDYuNTUtNy43NCw3LjQtMTMuMjUtMS4xMy0uNDMtMi4wMS0xLjM3LTIuMzYtMi41NGgtNS43NmMtLjMxLDQtMi4yNyw3LjE5LTUuMDcsOS43Ny0yLjc3LDIuNTUtNi4zNyw0LjQ5LTkuOTgsNi4wMnY2LjgyYy43OS4yNCwxLjQ4LjcyLDEuOTcsMS4zNVoiLz4KPC9zdmc+" alt="SafeTransact.digital" class="brand-logo-img">
+    </a>
+    <button type="button" class="nav-hamburger" id="navHamburger" aria-label="Abrir menú" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line class="hamburger-line hamburger-line-1" x1="3" y1="6" x2="21" y2="6"/>
+        <line class="hamburger-line hamburger-line-2" x1="3" y1="12" x2="21" y2="12"/>
+        <line class="hamburger-line hamburger-line-3" x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <ul class="nav-links">
+      <li class="nav-close-item">
+        <button type="button" class="nav-close" id="navCloseBtn" aria-label="Cerrar menú">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </li>
+      <li><a href="/#que-es">Qué es</a></li>
+      <li><a href="/#servicios">Servicios</a></li>
+      <li><a href="/#normativa">Normativa</a></li>
+      <li><a href="/#sectores">Sectores</a></li>
+      <li><a href="/#contacto" class="nav-cta">Contactar</a></li>
+    </ul>
+  </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <div class="policy-page">
+  <div class="policy-shell">
+    <header class="policy-hero">
+      <h1>Política de Cookies</h1>
+      <p class="policy-summary">Esta web tiene carácter esencialmente informativo y no utiliza cookies analíticas, publicitarias ni de personalización. Esta política describe las tecnologías empleadas y el tratamiento asociado.</p>
+    </header>
+
+    <div class="policy-body">
+      <aside class="policy-side">
+        <a href="#que-son">1. Qué son las cookies</a>
+        <a href="#que-utilizamos">2. Qué utiliza esta web</a>
+        <a href="#almacenamiento-local">3. Almacenamiento local del aviso</a>
+        <a href="#terceros">4. Recursos de terceros</a>
+        <a href="#gestion">5. Gestión en el navegador</a>
+        <a href="#actualizaciones">6. Actualizaciones</a>
+      </aside>
+
+      <main class="policy-main">
+        <section class="policy-card" id="que-son">
+          <h2>1. Qué son las cookies</h2>
+          <p>Las cookies y tecnologías similares son pequeños archivos o mecanismos de almacenamiento que pueden descargarse o activarse en el terminal del usuario al acceder a una página web. Su finalidad puede ser técnica, analítica, publicitaria, de personalización o de otra naturaleza equivalente.</p>
+        </section>
+
+        <section class="policy-card" id="que-utilizamos">
+          <h2>2. Qué utiliza esta web</h2>
+          <p>En la fecha de última actualización de esta política, <strong>SafeTransact Digital no utiliza cookies analíticas, publicitarias ni de personalización</strong> en este sitio web.</p>
+          <p>La web se limita a ofrecer contenido corporativo e informativo. No se han implementado herramientas de medición de audiencia, remarketing, perfiles de usuario, redes publicitarias ni tecnologías equivalentes orientadas al seguimiento de la navegación.</p>
+        </section>
+
+        <section class="policy-card" id="almacenamiento-local">
+          <h2>3. Almacenamiento local del aviso informativo</h2>
+          <p>Este sitio emplea almacenamiento local del navegador (<code>localStorage</code>) con la única finalidad de recordar si el usuario ha minimizado el aviso informativo sobre cookies mostrado en la parte inferior de la página.</p>
+          <ul>
+            <li>Finalidad: recordar la preferencia de visualización del aviso.</li>
+            <li>Base funcional: evitar mostrar de nuevo el panel completo en cada visita.</li>
+            <li>Dato almacenado: un identificador técnico interno del estado del aviso.</li>
+            <li>No se utiliza para elaborar perfiles, medir actividad ni compartir información con terceros.</li>
+          </ul>
+        </section>
+
+        <section class="policy-card" id="terceros">
+          <h2>4. Recursos de terceros</h2>
+          <p>La página puede cargar recursos tipográficos servidos por Google Fonts. Esta integración no se utiliza por SafeTransact Digital con fines analíticos o publicitarios, pero implica la solicitud del recurso al proveedor correspondiente.</p>
+          <p>Si se sustituyen estos recursos por archivos alojados localmente, esta política se revisará para reflejar dicha modificación.</p>
+        </section>
+
+        <section class="policy-card" id="gestion">
+          <h2>5. Gestión en el navegador</h2>
+          <p>El usuario puede configurar su navegador para bloquear o eliminar cookies y otros mecanismos de almacenamiento local. Debe tener en cuenta que algunas funciones estrictamente técnicas o preferencias de visualización podrían dejar de recordarse correctamente tras dicha eliminación.</p>
+        </section>
+
+        <section class="policy-card" id="actualizaciones">
+          <h2>6. Actualizaciones</h2>
+          <p>SafeTransact Digital podrá revisar esta Política de Cookies para adaptarla a cambios normativos, técnicos o funcionales del sitio web. Se recomienda consultar esta página de forma periódica.</p>
+          <p><strong>Última actualización:</strong> 24 de marzo de 2026.</p>
+        </section>
+      </main>
+    </div>
+
+    <div class="policy-actions">
+      <a class="primary" href="/index.html">Volver a la web</a>
+      <a class="secondary" href="mailto:contact@safetransact.digital">Contactar</a>
+    </div>
+  </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/index.html" class="nav-logo" style="margin-bottom:0.5rem; color:var(--paper);">
+          SafeTransact <span style="color:#d4b87a;">Digital</span>
+        </a>
+        <p>Prestador Cualificado de Servicios de Confianza (QTSP) inscrito en la Lista de Confianza Europea. Preservación, validación y custodia de firmas electrónicas cualificadas con plena eficacia jurídica en toda la UE.</p>
+      </div>
+      <div class="footer-col" style="text-align:right;">
+        <h4>Contacto</h4>
+        <p style="font-size:0.85rem; opacity:0.6; line-height:1.7; margin-bottom:1rem;">
+          <a href="mailto:contact@safetransact.digital" style="color:rgba(245,242,235,0.6); text-decoration:none; transition:color 0.2s;">contact@safetransact.digital</a>
+        </p>
+        <p style="font-size:0.85rem; opacity:0.6; line-height:1.7;">
+          <strong style="font-weight:500; opacity:1; color:#d4b87a; font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase;">Dirección:</strong><br>
+          Calle Buenos Aires, 12.<br>
+          48001 Bilbao
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-meta">
+        <span>© 2025 SafeTransact Digital · Todos los derechos reservados</span>
+        <div class="footer-meta-links">
+          <a href="/politica-de-cookies.html">Política de Cookies</a>
+        </div>
+      </div>
+      <div class="cert-badges">
+        <div class="cert-badge">QTSP · eIDAS</div>
+        <div class="cert-badge">ETSI 319 102</div>
+        <div class="cert-badge">ISO 27001</div>
+        <div class="cert-badge">EU Trust List</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('navHamburger');
+    const navMenu = document.querySelector('.nav-links');
+    const overlay = document.getElementById('navOverlay');
+    const closeBtn = document.getElementById('navCloseBtn');
+
+    if (hamburger && navMenu && overlay) {
+      function toggleMenu() {
+        const isOpen = navMenu.classList.toggle('open');
+        hamburger.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      }
+
+      hamburger.addEventListener('click', toggleMenu);
+      overlay.addEventListener('click', toggleMenu);
+      if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+
+      navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (navMenu.classList.contains('open')) toggleMenu();
+        });
+      });
+    }
+  </script>
+</body>
+</html>

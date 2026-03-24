@@ -1132,6 +1132,188 @@
       transform: translateY(0);
     }
 
+    .footer-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-meta-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-meta-links a {
+      color: rgba(245,242,235,0.72);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-meta-links a:hover {
+      color: var(--gold-lt);
+    }
+
+    .cookie-banner {
+      position: fixed;
+      left: 1.25rem;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 1300;
+      display: flex;
+      justify-content: flex-start;
+      pointer-events: none;
+    }
+
+    .cookie-panel {
+      width: min(685px, 100%);
+      height: 345px;
+      background: rgba(245, 242, 235, 0.96);
+      border: 1px solid rgba(10, 13, 20, 0.1);
+      border-radius: 1.45rem;
+      box-shadow: 0 18px 48px rgba(10, 13, 20, 0.16);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      pointer-events: auto;
+      transform-origin: left bottom;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .cookie-panel[hidden] {
+      display: none;
+    }
+
+    .cookie-panel-minimized {
+      width: 59px;
+      height: 59px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      background: linear-gradient(145deg, #18366f, #27488c);
+      border: none;
+      box-shadow: 0 18px 40px rgba(24, 54, 111, 0.35);
+      cursor: pointer;
+      pointer-events: auto;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .cookie-panel-minimized[hidden] {
+      display: none;
+    }
+
+    .cookie-panel-minimized:hover {
+      transform: translateY(-3px);
+    }
+
+    .cookie-panel-minimized svg {
+      width: 29px;
+      height: 29px;
+    }
+
+    .cookie-panel-head {
+      padding: 0.45rem 4.25rem 0 1.1rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 0.8rem;
+    }
+
+    .cookie-panel-head h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.22rem;
+      line-height: 1.05;
+      font-weight: 600;
+    }
+
+    .cookie-panel-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(10, 13, 20, 0.1);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      flex: 0 0 auto;
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .cookie-panel-body {
+      padding: 0.3rem 1.1rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .cookie-panel-body p {
+      font-size: 0.86rem;
+      line-height: 1.22;
+      color: rgba(10, 13, 20, 0.84);
+      max-width: 56ch;
+    }
+
+    .cookie-panel-note {
+      margin-top: 0.7rem;
+      padding: 0.72rem 0.82rem;
+      border-radius: 0.8rem;
+      background: rgba(26, 110, 110, 0.08);
+      border: 1px solid rgba(26, 110, 110, 0.16);
+      font-size: 0.76rem;
+      line-height: 1.18;
+      color: rgba(10, 13, 20, 0.76);
+    }
+
+    .cookie-panel-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+      margin-top: 1rem;
+      padding-top: 0;
+    }
+
+    .cookie-action-primary,
+    .cookie-action-secondary {
+      border-radius: 999px;
+      width: 100%;
+      min-width: 0;
+      padding: 0.78rem 0.95rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: 'DM Mono', monospace;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      text-align: center;
+    }
+
+    .cookie-action-primary {
+      background: var(--ink);
+      color: var(--paper);
+      border: 1px solid var(--ink);
+    }
+
+    .cookie-action-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid rgba(10, 13, 20, 0.14);
+    }
+
+    .cookie-action-primary:hover,
+    .cookie-action-secondary:hover {
+      transform: translateY(-1px);
+    }
+
     /* ── RESPONSIVE ───────────────────────────────────────── */
     @media (max-width: 1024px) {
       .nav-hamburger { display: block; }
@@ -1248,6 +1430,21 @@
       .footer-top { grid-template-columns: 1fr; }
       .footer-top .footer-col { text-align: left !important; }
       .trust-strip { flex-direction: column; gap: 1rem; text-align: center; }
+      .cookie-panel { width: min(100%, 685px); }
+      .cookie-panel-body {
+        padding-bottom: 1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cookie-panel {
+        width: min(100%, 420px);
+        height: auto;
+      }
+
+      .cookie-panel-actions {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -1757,7 +1954,12 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 SafeTransact Digital · Todos los derechos reservados</span>
+    <div class="footer-meta">
+      <span>© 2025 SafeTransact Digital · Todos los derechos reservados</span>
+      <div class="footer-meta-links">
+        <a href="/politica-de-cookies.html">Política de Cookies</a>
+      </div>
+    </div>
     <div class="cert-badges">
       <div class="cert-badge">QTSP · eIDAS</div>
       <div class="cert-badge">ETSI 319 102</div>
@@ -1766,6 +1968,32 @@
     </div>
   </div>
 </footer>
+
+<div class="cookie-banner" aria-live="polite">
+  <section class="cookie-panel" id="cookiePanel" aria-labelledby="cookieTitle">
+    <div class="cookie-panel-head">
+      <h3 id="cookieTitle">Información sobre cookies</h3>
+      <button class="cookie-panel-close" id="cookieMinimize" type="button" aria-label="Minimizar aviso de cookies">×</button>
+    </div>
+    <div class="cookie-panel-body">
+      <p>Este sitio no utiliza cookies analíticas, publicitarias ni de personalización. Solo emplea elementos técnicos imprescindibles y muestra este aviso por transparencia regulatoria.</p>
+      <div class="cookie-panel-note">
+        Más detalle en la <a href="/politica-de-cookies.html" style="color:var(--teal);">Política de Cookies</a>.
+      </div>
+      <div class="cookie-panel-actions">
+        <a class="cookie-action-secondary" href="/politica-de-cookies.html">Política de Cookies</a>
+        <button class="cookie-action-primary" id="cookieAcknowledge" type="button">Entendido</button>
+      </div>
+    </div>
+  </section>
+
+  <button class="cookie-panel-minimized" id="cookieReopen" type="button" aria-label="Abrir aviso de cookies" hidden>
+    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <rect x="10" y="22" width="27" height="20" rx="10" stroke="#F5F2EB" stroke-width="6"/>
+      <rect x="27" y="22" width="27" height="20" rx="10" stroke="#F5F2EB" stroke-width="6"/>
+    </svg>
+  </button>
+</div>
 
 <script>
   // Intersection Observer for fade-in animations
@@ -1821,6 +2049,55 @@
       a.style.opacity = a.getAttribute('href') === `#${current}` ? '1' : '0.7';
     });
   });
+
+  // Informational cookie banner
+  const cookiePanel = document.getElementById('cookiePanel');
+  const cookieReopen = document.getElementById('cookieReopen');
+  const cookieAcknowledge = document.getElementById('cookieAcknowledge');
+  const cookieMinimize = document.getElementById('cookieMinimize');
+  const cookieStorageKey = 'safetransact_cookie_notice_state';
+
+  function readCookieNoticeState() {
+    try {
+      return window.localStorage.getItem(cookieStorageKey);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function writeCookieNoticeState(value) {
+    try {
+      window.localStorage.setItem(cookieStorageKey, value);
+    } catch (error) {
+      // Ignore storage failures and keep the banner visible.
+    }
+  }
+
+  function showCookiePanel() {
+    cookiePanel.hidden = false;
+    cookieReopen.hidden = true;
+  }
+
+  function minimizeCookiePanel(persist) {
+    cookiePanel.hidden = true;
+    cookieReopen.hidden = false;
+    if (persist) writeCookieNoticeState('minimized');
+  }
+
+  if (cookiePanel && cookieReopen && cookieAcknowledge && cookieMinimize) {
+    if (readCookieNoticeState() === 'minimized') {
+      minimizeCookiePanel(false);
+    } else {
+      showCookiePanel();
+    }
+
+    cookieAcknowledge.addEventListener('click', () => minimizeCookiePanel(true));
+    cookieMinimize.addEventListener('click', () => minimizeCookiePanel(true));
+    cookieReopen.addEventListener('click', () => {
+      showCookiePanel();
+      writeCookieNoticeState('open');
+    });
+  }
 </script>
 </body>
 </html>
