@@ -1237,9 +1237,11 @@
       display: grid;
       place-items: center;
       padding: 0;
-      background: linear-gradient(145deg, #18366f, #27488c);
+      background: linear-gradient(145deg, rgba(24, 54, 111, 0.82), rgba(39, 72, 140, 0.82));
       border: none;
-      box-shadow: 0 18px 40px rgba(24, 54, 111, 0.35);
+      box-shadow: 0 14px 30px rgba(24, 54, 111, 0.22);
+      backdrop-filter: blur(10px);
+      opacity: 0.84;
       cursor: pointer;
       pointer-events: auto;
       transition: transform 0.25s ease, opacity 0.25s ease;
@@ -1251,6 +1253,7 @@
 
     .cookie-panel-minimized:hover {
       transform: translateY(-3px);
+      opacity: 0.94;
     }
 
     .cookie-panel-minimized svg {
@@ -1493,34 +1496,46 @@
     }
 
     @media (max-width: 640px) {
-      .cookie-banner.is-minimized {
-        top: calc(5rem + env(safe-area-inset-top, 0px));
+      .cookie-banner {
+        left: 0.75rem;
         right: 0.75rem;
-        bottom: auto !important;
-        left: auto;
-        justify-content: flex-end;
+        bottom: 0.75rem;
       }
 
-      .cookie-banner.is-minimized .cookie-panel-minimized {
-        width: auto;
-        height: 2.5rem;
-        padding: 0 0.95rem;
-        border-radius: 999px;
-        gap: 0.5rem;
+      .cookie-panel-minimized {
+        width: 48px;
+        height: 48px;
+        box-shadow: 0 12px 24px rgba(24, 54, 111, 0.28);
       }
 
-      .cookie-banner.is-minimized .cookie-panel-minimized::after {
-        content: "Cookies";
-        font-family: 'DM Mono', monospace;
-        font-size: 0.68rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #F5F2EB;
+      .cookie-panel-minimized svg {
+        width: 22px;
+        height: 22px;
       }
 
-      .cookie-banner.is-minimized .cookie-panel-minimized svg {
-        width: 18px;
-        height: 18px;
+      .footer-bottom {
+        gap: 1.5rem;
+      }
+
+      .footer-meta {
+        width: 100%;
+      }
+
+      .footer-meta > span {
+        display: block;
+        max-width: 18ch;
+        line-height: 1.7;
+      }
+
+      .cert-badges {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+        width: 100%;
+      }
+
+      .cert-badge {
+        text-align: center;
       }
 
       .footer-prefooter {
