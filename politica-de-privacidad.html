@@ -449,6 +449,42 @@
       margin-top: 2rem;
     }
 
+    .footer-prefooter {
+      margin: -4rem -3rem 3rem;
+      padding: 0.75rem 3rem;
+      background: var(--gold);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.55rem 0;
+    }
+
+    .footer-prefooter a {
+      color: var(--paper);
+      text-decoration: none;
+      font-size: 0.9rem;
+      line-height: 1.35;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-prefooter a + a {
+      position: relative;
+      margin-left: 0.8rem;
+      padding-left: 0.8rem;
+    }
+
+    .footer-prefooter a + a::before {
+      content: "|";
+      position: absolute;
+      left: 0;
+      color: rgba(245,242,235,0.78);
+    }
+
+    .footer-prefooter a:hover {
+      opacity: 0.78;
+    }
+
     .footer-top {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -616,12 +652,30 @@
       .policy-body { grid-template-columns: 1fr; }
       .policy-side { border-right: none; border-bottom: 1px solid var(--rule); }
       footer { padding: 3rem 1.5rem 2rem; }
+      .footer-prefooter {
+        margin: -3rem -1.5rem 2.5rem;
+        padding: 0.75rem 1.5rem;
+        justify-content: flex-start;
+      }
+      .footer-prefooter a + a {
+        margin-left: 0;
+        padding-left: 0;
+      }
+      .footer-prefooter a + a::before {
+        content: none;
+      }
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
       .footer-col { text-align: left !important; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
 
     @media (max-width: 640px) {
+      .footer-prefooter {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.45rem;
+      }
+
       .cookie-panel {
         width: min(100%, 685px);
       }
@@ -774,6 +828,13 @@
   </div>
 
   <footer>
+  <div class="footer-prefooter">
+    <a href="/aviso-legal.html">Aviso Legal</a>
+    <a href="/politica-de-privacidad.html">Política de Privacidad</a>
+    <a href="/politica-de-cookies.html">Política de Cookies</a>
+    <a href="/terminos-y-condiciones.html">Términos y Condiciones</a>
+    <a href="/politicas.html">Políticas</a>
+  </div>
   <div class="footer-top">
     <div class="footer-brand">
       <a href="/" class="nav-logo" style="margin-bottom:0.5rem;">
@@ -795,18 +856,7 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-meta">
-      <span>© 2025 SafeTransact Digital · Todos los derechos reservados</span>
-      <div class="footer-meta-links">
-        <a href="/aviso-legal.html">Aviso Legal</a>
-        <span>|</span>
-        <a href="/politica-de-privacidad.html">Política de Privacidad</a>
-        <span>|</span>
-        <a href="/politica-de-cookies.html">Política de Cookies</a>
-        <span>|</span>
-        <a href="/terminos-y-condiciones.html">Términos y Condiciones</a>
-        <span>|</span>
-        <a href="/politicas.html">Políticas</a>
-      </div>
+      <span>© <span data-current-year>2025</span> SafeTransact Digital · Todos los derechos reservados</span>
     </div>
     <div class="cert-badges">
       <div class="cert-badge">QTSP · eIDAS</div>

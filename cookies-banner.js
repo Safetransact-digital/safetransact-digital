@@ -1,4 +1,11 @@
 (() => {
+  const currentYearNodes = document.querySelectorAll('[data-current-year]');
+  const currentYear = new Date().getFullYear();
+
+  currentYearNodes.forEach((node) => {
+    node.textContent = String(currentYear);
+  });
+
   const cookiePanel = document.getElementById('cookiePanel');
   const cookieReopen = document.getElementById('cookieReopen');
   const cookieAcknowledge = document.getElementById('cookieAcknowledge');
