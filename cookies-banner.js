@@ -23,11 +23,25 @@
     return;
   }
 
+  function setCookieBannerMinimizedState(isMinimized) {
+    if (!cookieBanner) {
+      return;
+    }
+
+    cookieBanner.classList.toggle('is-minimized', isMinimized);
+  }
+
   if (cookieBanner && footer) {
     let frameId = null;
+    const mobileMediaQuery = window.matchMedia('(max-width: 640px)');
 
     function syncCookieBannerOffset() {
       frameId = null;
+      if (mobileMediaQuery.matches && cookieBanner.classList.contains('is-minimized')) {
+        cookieBanner.style.bottom = 'auto';
+        return;
+      }
+
       const footerRect = footer.getBoundingClientRect();
       const overlap = Math.max(0, window.innerHeight - footerRect.top);
       const baseOffset = 20;
@@ -46,6 +60,7 @@
     requestCookieBannerOffsetSync();
     window.addEventListener('scroll', requestCookieBannerOffsetSync, { passive: true });
     window.addEventListener('resize', requestCookieBannerOffsetSync);
+    mobileMediaQuery.addEventListener('change', requestCookieBannerOffsetSync);
   }
 
   function readCookieNoticeState() {
@@ -65,11 +80,13 @@
   }
 
   function showCookiePanel() {
+    setCookieBannerMinimizedState(false);
     cookiePanel.hidden = false;
     cookieReopen.hidden = true;
   }
 
   function minimizeCookiePanel(persist) {
+    setCookieBannerMinimizedState(true);
     cookiePanel.hidden = true;
     cookieReopen.hidden = false;
     if (persist) writeCookieNoticeState('minimized');

@@ -1493,6 +1493,36 @@
     }
 
     @media (max-width: 640px) {
+      .cookie-banner.is-minimized {
+        top: calc(5rem + env(safe-area-inset-top, 0px));
+        right: 0.75rem;
+        bottom: auto !important;
+        left: auto;
+        justify-content: flex-end;
+      }
+
+      .cookie-banner.is-minimized .cookie-panel-minimized {
+        width: auto;
+        height: 2.5rem;
+        padding: 0 0.95rem;
+        border-radius: 999px;
+        gap: 0.5rem;
+      }
+
+      .cookie-banner.is-minimized .cookie-panel-minimized::after {
+        content: "Cookies";
+        font-family: 'DM Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #F5F2EB;
+      }
+
+      .cookie-banner.is-minimized .cookie-panel-minimized svg {
+        width: 18px;
+        height: 18px;
+      }
+
       .footer-prefooter {
         flex-direction: column;
         align-items: flex-start;
