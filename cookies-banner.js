@@ -1,11 +1,18 @@
 (() => {
-  const currentYearNodes = document.querySelectorAll('[data-current-year]');
-  const currentYear = new Date().getFullYear();
+  function syncCurrentYear() {
+    const currentYearNodes = document.querySelectorAll('[data-current-year]');
+    const currentYear = new Date().getFullYear();
 
-  currentYearNodes.forEach((node) => {
-    node.textContent = String(currentYear);
-  });
+    currentYearNodes.forEach((node) => {
+      node.textContent = String(currentYear);
+    });
+  }
 
+  syncCurrentYear();
+  document.addEventListener('DOMContentLoaded', syncCurrentYear);
+
+  const cookieBanner = document.querySelector('.cookie-banner');
+  const footer = document.querySelector('footer');
   const cookiePanel = document.getElementById('cookiePanel');
   const cookieReopen = document.getElementById('cookieReopen');
   const cookieAcknowledge = document.getElementById('cookieAcknowledge');
@@ -14,6 +21,31 @@
 
   if (!cookiePanel || !cookieReopen || !cookieAcknowledge || !cookieMinimize) {
     return;
+  }
+
+  if (cookieBanner && footer) {
+    let frameId = null;
+
+    function syncCookieBannerOffset() {
+      frameId = null;
+      const footerRect = footer.getBoundingClientRect();
+      const overlap = Math.max(0, window.innerHeight - footerRect.top);
+      const baseOffset = 20;
+      const extraOffset = overlap > 0 ? overlap + 12 : 0;
+      cookieBanner.style.bottom = `${baseOffset + extraOffset}px`;
+    }
+
+    function requestCookieBannerOffsetSync() {
+      if (frameId !== null) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(syncCookieBannerOffset);
+    }
+
+    requestCookieBannerOffsetSync();
+    window.addEventListener('scroll', requestCookieBannerOffsetSync, { passive: true });
+    window.addEventListener('resize', requestCookieBannerOffsetSync);
   }
 
   function readCookieNoticeState() {
