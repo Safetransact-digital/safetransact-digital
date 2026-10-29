@@ -1,0 +1,6 @@
+# Archivos locales e internos: el workflow de Pages publica toda la raiz del repo
+.claude/
+HANDOFF-CLAUDE-CODE.md
+
+# Sistema
+.DS_Store
